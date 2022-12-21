@@ -7,6 +7,8 @@ import 'feature/login/login_view.dart';
 import 'product/init/application_init.dart';
 import 'product/init/product_states.dart';
 import 'product/init/theme_manager.dart';
+import 'feature/login/onboard_view.dart';
+
 
 void main() async {
   final _appInit = ApplicationInit();
@@ -39,7 +41,7 @@ class _MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       theme: context.watch<ThemeManager>().currentTheme,
-      home: const LoginView(),
+      home: OnboardView(),
     );
   }
 }
