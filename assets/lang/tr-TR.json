@@ -1,0 +1,24 @@
+{
+    "app_name": "Remindly",
+    "go_on": "Devam Et",
+    "okey": "Tamam",
+    "dialog": {
+        "auth_error": "Oturum Hatası"
+    },
+    "error": {
+        "accountExistsDifferentCredential": "Seçtiğiniz hesapta kullanılan e-posta ile başka bir platform kullanılarak hesap açılmış gözüküyor. Lütfen bu e-posta ile giriş yaptığınız platformu kullanarak tekrar deneyin.",
+        "unknown": "Bilinmeyen bir hata meydana geldi!",
+        "wrongPassword": "Yanlış şifre. Lütfen bilgilerinizi kontrol ederek tekrar deneyin.",
+        "weakPassword": "Parolanız en az 6 karakterden oluşmalıdır.",
+        "userNotFound": "Kullanıcı kayıtlarda bulunamadı. Hesap silinmiş veya askıya alınmış olabilir.",
+        "userAlreadyWrited": "Kullanıcı zaten sistemde kayıtlı.",
+        "tooManyRequests": "Birçok başarısız oturum açma girişimi nedeniyle bu hesaba erişim geçici olarak devre dışı bırakıldı. Şifrenizi sıfırlayarak hemen geri yükleyebilir veya daha sonra tekrar deneyebilirsiniz.",
+        "emailAlreadyInUse": "E-posta adresi zaten başka bir hesap tarafından kullanılıyor.",
+        "emailNotCatch" : "Seçtiğiniz hesaptan email adresi çekilemedi. Lütfen başka bir hesapla tekrar deneyin."
+    },
+    "form": {
+        "enter_a_valid_mail": "Geçerli bir e-posta adresi gir",
+        "password_must_be_long_character": "Parola 6 karakter veya daha uzun olmalıdır",
+        "password_must_match": "Parolalar birbiriyle aynı olmalıdır"
+    }
+}
