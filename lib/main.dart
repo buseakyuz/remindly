@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Remindly',
       home: LoginView(),
+      //heloooo 
     );
   }
 }
