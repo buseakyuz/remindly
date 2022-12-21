@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "498505194595",
+    "project_id": "remindly-revisionbyte",
+    "storage_bucket": "remindly-revisionbyte.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498505194595:android:04cf90ea2a362f034f6c56",
+        "android_client_info": {
+          "package_name": "com.remindly.remindly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498505194595-dqrhta4ghjf0om2pl2ib3mk6okuauarp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABeJYxSjkG-j-ZBcSCqhaMcEN1s31TrlU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498505194595-dqrhta4ghjf0om2pl2ib3mk6okuauarp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
