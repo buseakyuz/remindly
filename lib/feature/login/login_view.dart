@@ -57,17 +57,22 @@ class _LoginViewState extends State<LoginView> {
           children: [
             TextSpan(
                 text: " hüküm ve koşullarımızı",
-                style: TextStyle(color: Colors.black)),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: Colors.black, fontSize: 20.0)),
             TextSpan(
                 text: " kabul ettiğinizi onaylarsınız.",
-                style: TextStyle(
-                  color: Colors.black.withOpacity(0.5),
-                )),
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 20.0,
+                      color: Colors.black.withOpacity(0.5),
+                    )),
           ],
           text: "Devam ederek",
-          style: TextStyle(
-            color: Colors.black.withOpacity(0.5),
-          )),
+          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                fontSize: 20.0,
+                color: Colors.black.withOpacity(0.5),
+              )),
     );
   }
 
@@ -109,7 +114,8 @@ class _LoginViewState extends State<LoginView> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text("Geleceğe Not Bırakmak İçin Kayıt Ol.",
-              style: TextStyle(color: Colors.black.withOpacity(0.5))),
+              style: TextStyle(
+                  color: Colors.black.withOpacity(0.5), fontSize: 18.0)),
         ),
       ],
     );

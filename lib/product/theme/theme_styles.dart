@@ -7,25 +7,30 @@ import 'app_colors.dart';
 
 class ThemeStyles {
   // Global
-  static final TextStyle fontStyle = GoogleFonts.poppins();
-  static final TextTheme fontTheme = GoogleFonts.poppinsTextTheme();
+  static final TextStyle fontStyle = GoogleFonts.caveat();
+  static final TextTheme fontTheme = GoogleFonts.caveatTextTheme();
   static Color get primaryColor => HexColor(AppHexColors.PRIMARY_COLOR);
   static Color get secondaryColor => HexColor(AppHexColors.SECONDARY_COLOR);
   static Color get errorColor => HexColor(AppHexColors.ERROR_COLOR);
   static Color get blackColor => HexColor(AppHexColors.BLACK_COLOR);
   // DARK THEME
 
-  static Color get darkBackground => HexColor(AppHexColors.DARK_THEME_BACKGROUND);
+  static Color get darkBackground =>
+      HexColor(AppHexColors.DARK_THEME_BACKGROUND);
   static Color get darkLayer => HexColor(AppHexColors.DARK_THEME_LAYER);
   static Color get darkLabel => HexColor(AppHexColors.DARK_THEME_LABEL);
-  static Color get darkTitleText => HexColor(AppHexColors.DARK_THEME_TITLE_TEXT);
+  static Color get darkTitleText =>
+      HexColor(AppHexColors.DARK_THEME_TITLE_TEXT);
   static Color get darkBodyText => HexColor(AppHexColors.DARK_THEME_BODY_TEXT);
 
-  static Color get lightBackground => HexColor(AppHexColors.LIGHT_THEME_BACKGROUND);
+  static Color get lightBackground =>
+      HexColor(AppHexColors.LIGHT_THEME_BACKGROUND);
   static Color get lightLayer => HexColor(AppHexColors.LIGHT_THEME_LAYER);
   static Color get lightLabel => HexColor(AppHexColors.LIGHT_THEME_LABEL);
-  static Color get lightTitleText => HexColor(AppHexColors.LIGHT_THEME_TITLE_TEXT);
-  static Color get lightBodyText => HexColor(AppHexColors.LIGHT_THEME_BODY_TEXT);
+  static Color get lightTitleText =>
+      HexColor(AppHexColors.LIGHT_THEME_TITLE_TEXT);
+  static Color get lightBodyText =>
+      HexColor(AppHexColors.LIGHT_THEME_BODY_TEXT);
 
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: darkBackground,
@@ -49,7 +54,8 @@ class ThemeStyles {
             statusBarIconBrightness: Brightness.dark,
             statusBarBrightness: Brightness.dark,
             systemNavigationBarIconBrightness: Brightness.dark),
-        titleTextStyle: fontStyle.copyWith(color: darkTitleText, fontWeight: FontWeight.bold, fontSize: 18),
+        titleTextStyle: fontStyle.copyWith(
+            color: darkTitleText, fontWeight: FontWeight.bold, fontSize: 18),
         iconTheme: IconThemeData(color: darkTitleText),
         actionsIconTheme: IconThemeData(color: darkTitleText),
         backgroundColor: darkBackground,
@@ -97,7 +103,8 @@ class ThemeStyles {
     brightness: Brightness.light,
     inputDecorationTheme: InputDecorationTheme(
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: lightBodyText.withOpacity(0.4), width: 2),
+          borderSide:
+              BorderSide(color: lightBodyText.withOpacity(0.4), width: 2),
           borderRadius: BorderRadius.circular(10)),
       border: OutlineInputBorder(
         borderSide: const BorderSide(width: 2),
@@ -111,7 +118,8 @@ class ThemeStyles {
           statusBarBrightness: Brightness.light,
           systemNavigationBarIconBrightness: Brightness.light,
         ),
-        titleTextStyle: fontStyle.copyWith(color: lightTitleText, fontWeight: FontWeight.bold, fontSize: 16),
+        titleTextStyle: fontStyle.copyWith(
+            color: lightTitleText, fontWeight: FontWeight.bold, fontSize: 16),
         iconTheme: IconThemeData(color: lightTitleText),
         actionsIconTheme: IconThemeData(color: lightTitleText),
         backgroundColor: lightBackground,

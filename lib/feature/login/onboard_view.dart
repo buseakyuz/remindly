@@ -15,14 +15,7 @@ class _OnboardViewState extends State<OnboardView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Image.asset("assets/images/remindnote.png"),
-            ],
-          ),
-        ),
+        _onboardingIcon(),
         Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -43,43 +36,11 @@ class _OnboardViewState extends State<OnboardView> {
                       SizedBox(
                         height: 24.0,
                       ),
-                      Text(
-                        "Geleceğe not bırak",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 32.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 12.0,
-                      ),
-                      Text(
-                        "Notunu oluştur, hatırlatalım.",
-                        style: TextStyle(color: Colors.white, fontSize: 19.0),
-                      ),
+                      _welcomeText(),
                       SizedBox(
                         height: 52.0,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => LoginView()));
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.0)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Center(
-                                child: Text("Hadi Başlayalım",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.0))),
-                          ),
-                        ),
-                      ),
+                      _customRectangleButton(context),
                       SizedBox(
                         height: 24.0,
                       ),
@@ -89,6 +50,66 @@ class _OnboardViewState extends State<OnboardView> {
           ),
         )
       ]),
+    );
+  }
+
+  Expanded _onboardingIcon() {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Image.asset("assets/images/remindnote.png"),
+        ],
+      ),
+    );
+  }
+
+  Column _welcomeText() {
+    return Column(
+      children: [
+        Text(
+          "Geleceğe Not Bırak ",
+          style: TextStyle(
+              color: Colors.white, fontSize: 44.0, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: 12.0,
+        ),
+        Text(
+          "Notunu oluştur, hatırlatalım.",
+          style: TextStyle(color: Colors.white, fontSize: 24.0),
+        ),
+      ],
+    );
+  }
+
+  GestureDetector _customRectangleButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => LoginView()));
+      },
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(10.0)),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+              child: Text("Hadi Başlayalım",
+                  style:
+                      TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0))),
+        ),
+      ),
+    );
+  }
+
+  Column onboardIcon() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Image.asset("assets/images/remindnote.png"),
+      ],
     );
   }
 }
