@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class SignUpView extends StatefulWidget {
+  const SignUpView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignUpViewState extends State<SignUpView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +113,7 @@ class _LoginViewState extends State<LoginView> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text("Geleceğe Not Bırakmak İçin Kayıt Ol.",
+          child: Text("Geleceğe Not Bırakmak İçin Hemen Kayıt Ol.",
               style: TextStyle(
                   color: Colors.black.withOpacity(0.5), fontSize: 18.0)),
         ),

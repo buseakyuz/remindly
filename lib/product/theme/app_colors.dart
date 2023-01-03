@@ -1,5 +1,5 @@
 class AppHexColors {
-  static const String PRIMARY_COLOR = '#7F3D5B';
+  static const String PRIMARY_COLOR = '#151515';
   static const String SECONDARY_COLOR = '#6056EB';
   static const String ERROR_COLOR = '#c20034';
   static const String BLACK_COLOR = '#151515';

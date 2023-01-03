@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:remindly/feature/login/login_view.dart';
+import 'package:remindly/feature/login/sign_up_view.dart';
 
 class OnboardView extends StatefulWidget {
   const OnboardView({super.key});
@@ -87,7 +87,7 @@ class _OnboardViewState extends State<OnboardView> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => LoginView()));
+            .push(MaterialPageRoute(builder: (context) => SignUpView()));
       },
       child: Container(
         width: double.infinity,
