@@ -2,9 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
+import 'package:remindly/feature/global/widgets/note/note_card.dart';
+import 'package:remindly/product/providers/note/note_provider.dart';
 
 import 'feature/home/home_view.dart';
-import 'feature/login/login_view.dart';
+import 'feature/login/sign_in_view.dart';
+import 'feature/login/sign_up_view.dart';
 import 'product/init/application_init.dart';
 import 'product/init/product_states.dart';
 import 'product/init/theme_manager.dart';
@@ -34,14 +37,19 @@ class _MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      locale: context.locale,
-      title: 'Remindly',
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      theme: context.watch<ThemeManager>().currentTheme,
-      home: HomeView(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => NoteProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        locale: context.locale,
+        title: 'Remindly',
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        theme: context.watch<ThemeManager>().currentTheme,
+        home: HomeView(),
+      ),
     );
   }
 }
