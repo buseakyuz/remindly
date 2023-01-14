@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
+import 'package:remindly/core/constants/layout_constants.dart';
 import 'package:remindly/feature/global/screens/avatar/select_avatar_view.dart';
 import 'package:remindly/feature/global/widgets/note/note_card.dart';
 import 'package:remindly/feature/home/create_note_view.dart';
-import 'package:remindly/feature/settings/settings_view.dart';
 import 'package:remindly/product/providers/note/note_provider.dart';
+import 'package:remindly/product/services/api_service.dart';
+
+import '../profile/profile_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -16,6 +19,14 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<NoteProvider>().fetchNotes();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
 
   Padding noteList(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: LayoutConstants.highAllPadding,
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,8 +110,14 @@ class _HomeViewState extends State<HomeView> {
                   child: OverflowBox(
                     minHeight: 230.0,
                     maxHeight: 230.0,
-                    child: Lottie.asset(
-                      "assets/lotties/white_world.json",
+                    child: GestureDetector(
+                      onTap: () {
+                        var service = ApiService();
+                        service.fetchZort();
+                      },
+                      child: Lottie.asset(
+                        "assets/lotties/white_world.json",
+                      ),
                     ),
                   ),
                 ),
@@ -111,9 +128,7 @@ class _HomeViewState extends State<HomeView> {
                       fontSize: 22.0,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
-                  height: 32.0,
-                )
+                LayoutConstants.largeEmptyHeight,
               ],
             ),
           ),
@@ -127,23 +142,19 @@ class _HomeViewState extends State<HomeView> {
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
         leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SettingsView()));
-            },
+            onPressed: () {},
             icon: Icon(
               Icons.dehaze,
               color: Colors.white,
             )),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: LayoutConstants.defaultAllPadding,
             child: GestureDetector(
-              onTap: _selectAvatar,
+              onTap: _goToProfile,
               child: CircleAvatar(
                 backgroundColor: Colors.white,
                 backgroundImage: AssetImage("assets/avatars/0.png"),
-                //child: Image.asset("assets/avatars/0.png"),
               ),
             ),
           )
@@ -156,5 +167,10 @@ class _HomeViewState extends State<HomeView> {
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(44.0)),
         context: context,
         builder: (context) => SelectAvatarView());
+  }
+
+  void _goToProfile() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => ProfileView()));
   }
 }

@@ -1,4 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:remindly/feature/login/sign_in_view.dart';
+
+import '../../core/constants/layout_constants.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -13,7 +17,7 @@ class _SignUpViewState extends State<SignUpView> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(32.0),
+          padding: LayoutConstants.largeAllPadding,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,27 +27,55 @@ class _SignUpViewState extends State<SignUpView> {
                   Navigator.pop(context);
                 },
               ),
-              SizedBox(
-                height: 64.0,
-              ),
+              LayoutConstants.ultraEmptyHeight,
               _pageTitle(),
-              SizedBox(
-                height: 48.0,
-              ),
+              LayoutConstants.maxEmptyHeight,
               _customTextField(label: "İsim Soyisim", iconData: Icons.person),
-              const SizedBox(height: 24.0),
+              LayoutConstants.highEmptyHeight,
               _customTextField(
                   label: "E-Posta", iconData: Icons.alternate_email),
-              const SizedBox(height: 24.0),
+              LayoutConstants.highEmptyHeight,
               _customTextField(label: "Parola", iconData: Icons.lock),
-              const SizedBox(
-                height: 24.0,
-              ),
+              LayoutConstants.highEmptyHeight,
               customRectangleButton(),
-              SizedBox(
-                height: 24.0,
-              ),
-              _privacyPolicy()
+              LayoutConstants.highEmptyHeight,
+              _privacyPolicy(),
+              LayoutConstants.highEmptyHeight,
+              Column(
+                children: [
+                  Center(
+                    child: RichText(
+                      text: TextSpan(children: [
+                        TextSpan(
+                            text: "Zaten bir hesabın var mı?",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(
+                                    color: Colors.black.withOpacity(0.5),
+                                    fontSize: 22.0)),
+                        TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => SignInView()),
+                              );
+                            },
+                          text: " Giriş Yap.",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  color: Colors.black,
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                      ]),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
@@ -80,18 +112,20 @@ class _SignUpViewState extends State<SignUpView> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black,
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
       ),
       width: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(
+            vertical: LayoutConstants.midSize,
+            horizontal: LayoutConstants.midSize),
         child: Center(
           child: Text(
             "Kayıt Ol",
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0),
+                fontSize: 22.0),
           ),
         ),
       ),
@@ -112,7 +146,7 @@ class _SignUpViewState extends State<SignUpView> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: LayoutConstants.defaultVerticalPadding,
           child: Text("Geleceğe Not Bırakmak İçin Hemen Kayıt Ol.",
               style: TextStyle(
                   color: Colors.black.withOpacity(0.5), fontSize: 18.0)),
@@ -127,7 +161,7 @@ class _SignUpViewState extends State<SignUpView> {
       child: Card(
         color: Colors.black,
         child: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(LayoutConstants.lowSize),
           child: Icon(
             Icons.chevron_left,
             color: Colors.white,
@@ -143,9 +177,11 @@ class _SignUpViewState extends State<SignUpView> {
     return Container(
       decoration: BoxDecoration(
           color: Colors.grey.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(10.0)),
+          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius)),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        padding: EdgeInsets.symmetric(
+            horizontal: LayoutConstants.defaultSize,
+            vertical: LayoutConstants.lowSize),
         child: TextField(
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(

@@ -3,10 +3,12 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import '../../firebase_options.dart';
 import 'language_manager.dart';
 import 'shared_manager.dart';
 import 'timezone_init.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ApplicationInit {
   final String assetPath = 'assets/lang';
@@ -20,10 +22,16 @@ class ApplicationInit {
 
   Future<void> firstlyInit() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
     await FirebaseAppCheck.instance.activate();
+    await _initHive();
     await EasyLocalization.ensureInitialized();
     TimezoneInit().init();
     SharedManager.instance.initSharedManager();
+  }
+
+  Future<void> _initHive() async {
+    Hive.initFlutter();
   }
 }

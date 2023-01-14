@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_holo_date_picker/date_picker.dart';
 import 'package:flutter_holo_date_picker/i18n/date_picker_i18n.dart';
 import 'package:provider/provider.dart';
+import 'package:remindly/core/constants/layout_constants.dart';
 
 import '../../product/models/note/note.dart';
 import '../../product/providers/note/note_provider.dart';
@@ -35,7 +36,9 @@ class _CreateNoteViewState extends State<CreateNoteView> {
     return Scaffold(
       appBar: _appBar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(
+            vertical: LayoutConstants.defaultSize,
+            horizontal: LayoutConstants.midSize),
         child: _createNoteColumn(),
       ),
     );
@@ -70,7 +73,7 @@ class _CreateNoteViewState extends State<CreateNoteView> {
         SafeArea(
           top: false,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            padding: LayoutConstants.midVerticalPadding,
             child: _selectDateButton(),
           ),
         ),
@@ -117,6 +120,7 @@ class _CreateNoteViewState extends State<CreateNoteView> {
       centerTitle: true,
       title: Text(
         "Not oluştur",
+        style: TextStyle(fontSize: 24.0),
       ),
       actions: [
         IconButton(

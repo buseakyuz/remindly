@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remindly/core/constants/layout_constants.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -13,7 +14,7 @@ class _SignInViewState extends State<SignInView> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(32.0),
+          padding: LayoutConstants.largeAllPadding,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,20 +24,14 @@ class _SignInViewState extends State<SignInView> {
                   Navigator.pop(context);
                 },
               ),
-              SizedBox(
-                height: 64.0,
-              ),
+              LayoutConstants.largeEmptyHeight,
               _pageTitle(),
-              SizedBox(
-                height: 48.0,
-              ),
+              LayoutConstants.maxEmptyHeight,
               _customTextField(
                   label: "E-Posta", iconData: Icons.alternate_email),
-              const SizedBox(height: 24.0),
+              LayoutConstants.highEmptyHeight,
               _customTextField(label: "Parola", iconData: Icons.lock),
-              const SizedBox(
-                height: 24.0,
-              ),
+              LayoutConstants.highEmptyHeight,
               customRectangleButton(),
             ],
           ),
@@ -49,11 +44,13 @@ class _SignInViewState extends State<SignInView> {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black,
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
       ),
       width: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(
+            vertical: LayoutConstants.midSize,
+            horizontal: LayoutConstants.defaultSize),
         child: Center(
           child: Text(
             "Giriş Yap",
@@ -96,7 +93,7 @@ class _SignInViewState extends State<SignInView> {
       child: Card(
         color: Colors.black,
         child: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(LayoutConstants.lowRadius),
           child: Icon(
             Icons.chevron_left,
             color: Colors.white,
@@ -112,9 +109,11 @@ class _SignInViewState extends State<SignInView> {
     return Container(
       decoration: BoxDecoration(
           color: Colors.grey.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(10.0)),
+          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius)),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        padding: const EdgeInsets.symmetric(
+            horizontal: LayoutConstants.defaultSize,
+            vertical: LayoutConstants.lowSize),
         child: TextField(
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
