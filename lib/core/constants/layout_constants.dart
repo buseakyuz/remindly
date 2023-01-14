@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//AYYYYYYYYY
 abstract class LayoutConstants {
   // ************* Sized ************* //
   static const noneSize = 0.0;
@@ -27,8 +28,10 @@ abstract class LayoutConstants {
   // ************* Vertical Padding ************* //
   static const tinyVerticalPadding = EdgeInsets.symmetric(vertical: tinySize);
   static const lowVerticalPadding = EdgeInsets.symmetric(vertical: lowSize);
-  static const defaultVerticalPadding = EdgeInsets.symmetric(vertical: defaultSize);
-  static const centralVerticalPadding = EdgeInsets.symmetric(vertical: centralSize);
+  static const defaultVerticalPadding =
+      EdgeInsets.symmetric(vertical: defaultSize);
+  static const centralVerticalPadding =
+      EdgeInsets.symmetric(vertical: centralSize);
   static const midVerticalPadding = EdgeInsets.symmetric(vertical: midSize);
   static const highVerticalPadding = EdgeInsets.symmetric(vertical: highSize);
   static const largeVerticalPadding = EdgeInsets.symmetric(vertical: largeSize);
@@ -36,18 +39,25 @@ abstract class LayoutConstants {
   static const ultraVerticalPadding = EdgeInsets.symmetric(vertical: ultraSize);
 
   // ************* Horizontal Padding ************* //
-  static const tinyHorizontalPadding = EdgeInsets.symmetric(horizontal: tinySize);
+  static const tinyHorizontalPadding =
+      EdgeInsets.symmetric(horizontal: tinySize);
   static const lowHorizontalPadding = EdgeInsets.symmetric(horizontal: lowSize);
-  static const defaultHorizontalPadding = EdgeInsets.symmetric(horizontal: defaultSize);
-  static const centralHorizontalPadding = EdgeInsets.symmetric(horizontal: centralSize);
+  static const defaultHorizontalPadding =
+      EdgeInsets.symmetric(horizontal: defaultSize);
+  static const centralHorizontalPadding =
+      EdgeInsets.symmetric(horizontal: centralSize);
   static const midHorizontalPadding = EdgeInsets.symmetric(horizontal: midSize);
-  static const highHorizontalPadding = EdgeInsets.symmetric(horizontal: highSize);
-  static const largeHorizontalPadding = EdgeInsets.symmetric(horizontal: largeSize);
+  static const highHorizontalPadding =
+      EdgeInsets.symmetric(horizontal: highSize);
+  static const largeHorizontalPadding =
+      EdgeInsets.symmetric(horizontal: largeSize);
   static const maxHorizontalPadding = EdgeInsets.symmetric(horizontal: maxSize);
-  static const ultraHorizontalPadding = EdgeInsets.symmetric(horizontal: ultraSize);
+  static const ultraHorizontalPadding =
+      EdgeInsets.symmetric(horizontal: ultraSize);
 
   // ************* Horizontal Padding ************* //
-  static const buttonPadding = EdgeInsets.symmetric(horizontal: largeSize, vertical: midSize);
+  static const buttonPadding =
+      EdgeInsets.symmetric(horizontal: largeSize, vertical: midSize);
 
   // ************* Empty Height ************* //
   static const tinyEmptyHeight = SizedBox(height: tinySize);
@@ -58,6 +68,7 @@ abstract class LayoutConstants {
   static const highEmptyHeight = SizedBox(height: highSize);
   static const largeEmptyHeight = SizedBox(height: largeSize);
   static const maxEmptyHeight = SizedBox(height: maxSize);
+  static const ultraEmptyHeight = SizedBox(height: ultraSize);
 
   // ************* Empty Width ************* //
   static const tinyEmptyWidth = SizedBox(width: tinySize);
@@ -76,7 +87,8 @@ abstract class LayoutConstants {
   static const maxRadius = 30.0;
 
   // ************* Circular Radius ************* //
-  static const defaultButtonBorder = BorderRadius.all(Radius.circular(defaultRadius));
+  static const defaultButtonBorder =
+      BorderRadius.all(Radius.circular(defaultRadius));
   static const highButtonBorder = BorderRadius.all(Radius.circular(highRadius));
   static const maxButtonBorder = BorderRadius.all(Radius.circular(maxRadius));
 

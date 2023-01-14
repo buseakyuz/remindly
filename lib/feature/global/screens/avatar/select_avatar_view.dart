@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../../../../core/constants/layout_constants.dart';
+
 class SelectAvatarView extends StatefulWidget {
   const SelectAvatarView({super.key});
 
@@ -20,7 +22,7 @@ class _SelectAvatarViewState extends State<SelectAvatarView> {
             Expanded(
                 flex: 2,
                 child: Padding(
-                  padding: const EdgeInsets.all(64.0),
+                  padding: LayoutConstants.ultraAllPadding,
                   child: Container(
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,

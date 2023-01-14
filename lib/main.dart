@@ -8,6 +8,7 @@ import 'package:remindly/product/providers/note/note_provider.dart';
 import 'feature/home/home_view.dart';
 import 'feature/login/sign_in_view.dart';
 import 'feature/login/sign_up_view.dart';
+import 'feature/profile/profile_view.dart';
 import 'product/init/application_init.dart';
 import 'product/init/product_states.dart';
 import 'product/init/theme_manager.dart';
