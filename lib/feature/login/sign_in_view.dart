@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:remindly/core/constants/layout_constants.dart';
+import 'package:remindly/product/providers/user/user_context.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -9,6 +11,8 @@ class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,11 +32,16 @@ class _SignInViewState extends State<SignInView> {
               _pageTitle(),
               LayoutConstants.maxEmptyHeight,
               _customTextField(
-                  label: "E-Posta", iconData: Icons.alternate_email),
+                  label: "E-Posta",
+                  iconData: Icons.alternate_email,
+                  controller: _emailController),
               LayoutConstants.highEmptyHeight,
-              _customTextField(label: "Parola", iconData: Icons.lock),
+              _customTextField(
+                  label: "Parola",
+                  iconData: Icons.lock,
+                  controller: _passwordController),
               LayoutConstants.highEmptyHeight,
-              customRectangleButton(),
+              signInButton(),
             ],
           ),
         ),
@@ -40,24 +49,27 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
-  Container customRectangleButton() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
-      ),
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-            vertical: LayoutConstants.midSize,
-            horizontal: LayoutConstants.defaultSize),
-        child: Center(
-          child: Text(
-            "Giriş Yap",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0),
+  Widget signInButton() {
+    return GestureDetector(
+      onTap: signIn,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
+        ),
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              vertical: LayoutConstants.midSize,
+              horizontal: LayoutConstants.defaultSize),
+          child: Center(
+            child: Text(
+              "Giriş Yap",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0),
+            ),
           ),
         ),
       ),
@@ -105,7 +117,9 @@ class _SignInViewState extends State<SignInView> {
   }
 
   Container _customTextField(
-      {required String label, required IconData iconData}) {
+      {required String label,
+      required IconData iconData,
+      required TextEditingController controller}) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.grey.withOpacity(0.2),
@@ -115,6 +129,7 @@ class _SignInViewState extends State<SignInView> {
             horizontal: LayoutConstants.defaultSize,
             vertical: LayoutConstants.lowSize),
         child: TextField(
+          controller: controller,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
@@ -127,5 +142,10 @@ class _SignInViewState extends State<SignInView> {
         ),
       ),
     );
+  }
+
+  signIn() {
+    context.read<UserContext>().signIn(
+        email: _emailController.text, password: _passwordController.text);
   }
 }

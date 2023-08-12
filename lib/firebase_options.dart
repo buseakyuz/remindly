@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,31 +49,21 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAcpYTXLNzOb4dorCe0Jvt2SuBYznzkFjI',
-    appId: '1:498505194595:web:fbc7332b13bbb5a94f6c56',
-    messagingSenderId: '498505194595',
-    projectId: 'remindly-revisionbyte',
-    authDomain: 'remindly-revisionbyte.firebaseapp.com',
-    storageBucket: 'remindly-revisionbyte.appspot.com',
-    measurementId: 'G-C6526HFXMG',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyABeJYxSjkG-j-ZBcSCqhaMcEN1s31TrlU',
-    appId: '1:498505194595:android:04cf90ea2a362f034f6c56',
-    messagingSenderId: '498505194595',
-    projectId: 'remindly-revisionbyte',
-    storageBucket: 'remindly-revisionbyte.appspot.com',
+    apiKey: 'AIzaSyCym5-G9a3_ZJwbihIPiM9HX9NP4m32ndw',
+    appId: '1:582571876103:android:3840acd596ef59a75defa2',
+    messagingSenderId: '582571876103',
+    projectId: 'remindly-biyee',
+    storageBucket: 'remindly-biyee.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC8ajndE3wqcbFjDmYDnGjbuwkaDljlwjA',
-    appId: '1:498505194595:ios:ac459461f87e18ec4f6c56',
-    messagingSenderId: '498505194595',
-    projectId: 'remindly-revisionbyte',
-    storageBucket: 'remindly-revisionbyte.appspot.com',
-    iosClientId: '498505194595-eh4r7eg6g8g7q76vi4ncvr0b760fp6m0.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDsMwhaaNiblQFTHiVxvOPZ5x-f3QWNWLE',
+    appId: '1:582571876103:ios:c7bdba38835f83e95defa2',
+    messagingSenderId: '582571876103',
+    projectId: 'remindly-biyee',
+    storageBucket: 'remindly-biyee.appspot.com',
+    iosClientId: '582571876103-542n9d3tlhl1vn18vtlvcrvdifsp93pq.apps.googleusercontent.com',
     iosBundleId: 'com.remindly.remindly',
   );
 }

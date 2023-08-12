@@ -16,8 +16,12 @@ class LocalStorageService {
   Future<List<Note>> fetchNotes() async {
     var box = await Hive.openBox("notes");
     var response = await box.get("allNotes");
-    List<dynamic> listJson = jsonDecode(response);
-    var list = listJson.map((e) => Note.fromJson(e)).toList();
-    return list;
+    if (response != null) {
+      List<dynamic> listJson = jsonDecode(response);
+      var list = listJson.map((e) => Note.fromJson(e)).toList();
+      return list;
+    } else {
+      return [];
+    }
   }
 }

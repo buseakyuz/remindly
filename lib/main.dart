@@ -2,17 +2,15 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
-import 'package:remindly/feature/global/widgets/note/note_card.dart';
+import 'package:remindly/feature/login/onboard_view.dart';
+import 'package:remindly/feature/login/sign_in_view.dart';
 import 'package:remindly/product/providers/note/note_provider.dart';
 
 import 'feature/home/home_view.dart';
-import 'feature/login/sign_in_view.dart';
 import 'feature/login/sign_up_view.dart';
-import 'feature/profile/profile_view.dart';
 import 'product/init/application_init.dart';
 import 'product/init/product_states.dart';
 import 'product/init/theme_manager.dart';
-import 'feature/login/onboard_view.dart';
 
 void main() async {
   final _appInit = ApplicationInit();
@@ -49,7 +47,7 @@ class _MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         theme: context.watch<ThemeManager>().currentTheme,
-        home: HomeView(),
+        home: OnboardView(),
       ),
     );
   }

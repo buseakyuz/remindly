@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>498505194595-eh4r7eg6g8g7q76vi4ncvr0b760fp6m0.apps.googleusercontent.com</string>
+	<string>582571876103-542n9d3tlhl1vn18vtlvcrvdifsp93pq.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.498505194595-eh4r7eg6g8g7q76vi4ncvr0b760fp6m0</string>
+	<string>com.googleusercontent.apps.582571876103-542n9d3tlhl1vn18vtlvcrvdifsp93pq</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC8ajndE3wqcbFjDmYDnGjbuwkaDljlwjA</string>
+	<string>AIzaSyDsMwhaaNiblQFTHiVxvOPZ5x-f3QWNWLE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>498505194595</string>
+	<string>582571876103</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.remindly.remindly</string>
 	<key>PROJECT_ID</key>
-	<string>remindly-revisionbyte</string>
+	<string>remindly-biyee</string>
 	<key>STORAGE_BUCKET</key>
-	<string>remindly-revisionbyte.appspot.com</string>
+	<string>remindly-biyee.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:498505194595:ios:ac459461f87e18ec4f6c56</string>
+	<string>1:582571876103:ios:c7bdba38835f83e95defa2</string>
 </dict>
 </plist>

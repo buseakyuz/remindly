@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "498505194595",
-    "project_id": "remindly-revisionbyte",
-    "storage_bucket": "remindly-revisionbyte.appspot.com"
+    "project_number": "582571876103",
+    "project_id": "remindly-biyee",
+    "storage_bucket": "remindly-biyee.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:498505194595:android:04cf90ea2a362f034f6c56",
+        "mobilesdk_app_id": "1:582571876103:android:3840acd596ef59a75defa2",
         "android_client_info": {
           "package_name": "com.remindly.remindly"
         }
       },
       "oauth_client": [
         {
-          "client_id": "498505194595-dqrhta4ghjf0om2pl2ib3mk6okuauarp.apps.googleusercontent.com",
+          "client_id": "582571876103-pgfum01ose26ubf0cincebc2qubgbtuo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyABeJYxSjkG-j-ZBcSCqhaMcEN1s31TrlU"
+          "current_key": "AIzaSyCym5-G9a3_ZJwbihIPiM9HX9NP4m32ndw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "498505194595-dqrhta4ghjf0om2pl2ib3mk6okuauarp.apps.googleusercontent.com",
+              "client_id": "582571876103-pgfum01ose26ubf0cincebc2qubgbtuo.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "582571876103-542n9d3tlhl1vn18vtlvcrvdifsp93pq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.remindly.remindly"
+              }
             }
           ]
         }

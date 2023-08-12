@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:remindly/core/constants/layout_constants.dart';
 import 'package:remindly/feature/global/screens/avatar/select_avatar_view.dart';
 import 'package:remindly/feature/global/widgets/note/note_card.dart';
 import 'package:remindly/feature/home/create_note_view.dart';
 import 'package:remindly/product/providers/note/note_provider.dart';
-import 'package:remindly/product/services/api_service.dart';
 
 import '../profile/profile_view.dart';
 
@@ -110,14 +108,8 @@ class _HomeViewState extends State<HomeView> {
                   child: OverflowBox(
                     minHeight: 230.0,
                     maxHeight: 230.0,
-                    child: GestureDetector(
-                      onTap: () {
-                        var service = ApiService();
-                        service.fetchZort();
-                      },
-                      child: Lottie.asset(
-                        "assets/lotties/white_world.json",
-                      ),
+                    child: Lottie.asset(
+                      "assets/lotties/white_world.json",
                     ),
                   ),
                 ),

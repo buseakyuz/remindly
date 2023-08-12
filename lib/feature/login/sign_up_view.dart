@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:remindly/feature/login/sign_in_view.dart';
+import 'package:remindly/product/providers/user/user_context.dart';
 
 import '../../core/constants/layout_constants.dart';
 
@@ -12,6 +14,9 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
+  TextEditingController realNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +35,22 @@ class _SignUpViewState extends State<SignUpView> {
               LayoutConstants.ultraEmptyHeight,
               _pageTitle(),
               LayoutConstants.maxEmptyHeight,
-              _customTextField(label: "İsim Soyisim", iconData: Icons.person),
+              _customTextField(
+                  label: "İsim Soyisim",
+                  iconData: Icons.person,
+                  controller: realNameController),
               LayoutConstants.highEmptyHeight,
               _customTextField(
-                  label: "E-Posta", iconData: Icons.alternate_email),
+                  label: "E-Posta",
+                  iconData: Icons.alternate_email,
+                  controller: emailController),
               LayoutConstants.highEmptyHeight,
-              _customTextField(label: "Parola", iconData: Icons.lock),
+              _customTextField(
+                  label: "Parola",
+                  iconData: Icons.lock,
+                  controller: passwordController),
               LayoutConstants.highEmptyHeight,
-              customRectangleButton(),
+              signUpButton(),
               LayoutConstants.highEmptyHeight,
               _privacyPolicy(),
               LayoutConstants.highEmptyHeight,
@@ -108,24 +121,27 @@ class _SignUpViewState extends State<SignUpView> {
     );
   }
 
-  Container customRectangleButton() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
-      ),
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-            vertical: LayoutConstants.midSize,
-            horizontal: LayoutConstants.midSize),
-        child: Center(
-          child: Text(
-            "Kayıt Ol",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 22.0),
+  Widget signUpButton() {
+    return GestureDetector(
+      onTap: _singUp,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
+        ),
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              vertical: LayoutConstants.midSize,
+              horizontal: LayoutConstants.midSize),
+          child: Center(
+            child: Text(
+              "Kayıt Ol",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22.0),
+            ),
           ),
         ),
       ),
@@ -173,7 +189,9 @@ class _SignUpViewState extends State<SignUpView> {
   }
 
   Container _customTextField(
-      {required String label, required IconData iconData}) {
+      {required String label,
+      required IconData iconData,
+      required TextEditingController controller}) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.grey.withOpacity(0.2),
@@ -183,6 +201,7 @@ class _SignUpViewState extends State<SignUpView> {
             horizontal: LayoutConstants.defaultSize,
             vertical: LayoutConstants.lowSize),
         child: TextField(
+          controller: controller,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
@@ -195,5 +214,12 @@ class _SignUpViewState extends State<SignUpView> {
         ),
       ),
     );
+  }
+
+  _singUp() {
+    context.read<UserContext>().signUp(
+        realName: realNameController.text,
+        email: emailController.text,
+        password: passwordController.text);
   }
 }
