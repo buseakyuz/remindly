@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:remindly/core/constants/layout_constants.dart';
 import 'package:remindly/product/providers/user/user_context.dart';
@@ -25,7 +26,7 @@ class _SignInViewState extends State<SignInView> {
             children: [
               backButton(
                 onTap: () {
-                  Navigator.pop(context);
+                  context.pop();
                 },
               ),
               LayoutConstants.largeEmptyHeight,

@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:remindly/feature/login/sign_in_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:remindly/product/navigation/route_enums.dart';
 import 'package:remindly/product/providers/user/user_context.dart';
 
 import '../../core/constants/layout_constants.dart';
@@ -29,7 +30,7 @@ class _SignUpViewState extends State<SignUpView> {
             children: [
               backButton(
                 onTap: () {
-                  Navigator.pop(context);
+                  context.pop();
                 },
               ),
               LayoutConstants.ultraEmptyHeight,
@@ -70,10 +71,7 @@ class _SignUpViewState extends State<SignUpView> {
                         TextSpan(
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) => SignInView()),
-                              );
+                              context.push(AppRoutes.signIn.path);
                             },
                           text: " Giriş Yap.",
                           style: Theme.of(context)

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:remindly/core/constants/layout_constants.dart';
-import 'package:remindly/feature/login/sign_up_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:remindly/product/navigation/route_enums.dart';
 
 class OnboardView extends StatefulWidget {
   const OnboardView({super.key});
@@ -77,8 +78,7 @@ class _OnboardViewState extends State<OnboardView> {
   GestureDetector _customRectangleButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => SignUpView()));
+        context.push(AppRoutes.signUp.path);
       },
       child: Container(
         width: double.infinity,

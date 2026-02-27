@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/layout_constants.dart';
 import '../../../../product/lang/locale_keys.g.dart';
@@ -47,10 +48,11 @@ class CustomErrorDialog {
                         ),
                       ),
                       InkWell(
-                        borderRadius:
-                            const BorderRadius.vertical(bottom: Radius.circular(LayoutConstants.defaultRadius)),
+                        borderRadius: const BorderRadius.vertical(
+                            bottom:
+                                Radius.circular(LayoutConstants.defaultRadius)),
                         onTap: () {
-                          Navigator.pop(context);
+                          context.pop();
                         },
                         child: Column(
                           children: [
@@ -59,7 +61,9 @@ class CustomErrorDialog {
                               child: Text(
                                 LocaleKeys.okey.tr(),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                               ),
                             ),
                             LayoutConstants.midEmptyHeight,

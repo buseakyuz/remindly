@@ -4,7 +4,8 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:remindly/core/extension/context_extension.dart';
 import 'package:remindly/core/constants/layout_constants.dart';
-import 'package:remindly/feature/home/create_note_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:remindly/product/navigation/route_enums.dart';
 import 'package:remindly/product/lang/locale_keys.g.dart';
 import 'package:remindly/product/models/note/note.dart';
 import 'package:remindly/product/providers/note/note_provider.dart';
@@ -35,9 +36,7 @@ class _SingleNoteItem extends StatelessWidget {
     return Padding(
       padding: LayoutConstants.lowVerticalPadding,
       child: GestureDetector(
-        onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => CreateNoteView(note: note)),
-        ),
+        onTap: () => context.push(AppRoutes.createNote.path, extra: note),
         child: Slidable(
           key: ValueKey(note.id),
           endActionPane: ActionPane(

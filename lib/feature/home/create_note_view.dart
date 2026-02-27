@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_holo_date_picker/date_picker.dart';
 import 'package:flutter_holo_date_picker/i18n/date_picker_i18n.dart';
 import 'package:provider/provider.dart';
@@ -188,7 +189,7 @@ class _CreateNoteViewState extends State<CreateNoteView> {
       updatedNote.noteContent = noteController.text;
       updatedNote.reminderDate = _date;
       context.read<NoteProvider>().updateNote(updatedNote);
-      Navigator.pop(context);
+      context.pop();
     } else {
       final newNote = Note();
       newNote.id = UniqueKey().hashCode.toString();
@@ -197,7 +198,7 @@ class _CreateNoteViewState extends State<CreateNoteView> {
       newNote.reminderDate = _date;
       newNote.creationDate = DateTime.now();
       context.read<NoteProvider>().addNote(newNote);
-      Navigator.pop(context);
+      context.pop();
     }
   }
 }

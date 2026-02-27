@@ -4,8 +4,8 @@ import 'package:remindly/core/extension/context_extension.dart';
 import 'package:remindly/product/constants/asset_constants.dart';
 import 'package:remindly/product/providers/note/note_provider.dart';
 
-import '../profile/profile_view.dart';
-import 'create_note_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:remindly/product/navigation/route_enums.dart';
 import 'widgets/home_drawer.dart';
 import 'widgets/note_list_view.dart';
 import 'widgets/total_note_counter.dart';
@@ -53,9 +53,7 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 16.0),
           child: GestureDetector(
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const ProfileView()),
-            ),
+            onTap: () => context.push(AppRoutes.profile.path),
             child: const CircleAvatar(
               backgroundColor: Colors.white,
               backgroundImage: AssetImage(AssetConstants.defaultAvatar),
@@ -77,12 +75,7 @@ class _HomeFab extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       backgroundColor: context.colorScheme.primary,
-      onPressed: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const CreateNoteView(),
-          fullscreenDialog: true,
-        ),
-      ),
+      onPressed: () => context.push(AppRoutes.createNote.path),
       child: Icon(
         Icons.add_circle_rounded,
         color: context.colorScheme.onPrimary,

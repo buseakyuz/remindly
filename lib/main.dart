@@ -2,9 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:provider/provider.dart';
+import 'package:remindly/product/navigation/app_router.dart';
 import 'package:remindly/product/providers/note/note_provider.dart';
-
-import 'feature/home/home_view.dart';
 import 'product/init/application_init.dart';
 import 'product/init/product_states.dart';
 import 'product/init/theme_manager.dart';
@@ -37,14 +36,14 @@ class _MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => NoteProvider()),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         locale: context.locale,
         title: 'Remindly',
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         theme: context.watch<ThemeManager>().currentTheme,
-        home: HomeView(),
+        routerConfig: AppRouter.router,
       ),
     );
   }
