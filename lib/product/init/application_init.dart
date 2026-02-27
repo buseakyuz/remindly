@@ -3,7 +3,6 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hive/hive.dart';
 import '../../firebase_options.dart';
 import 'language_manager.dart';
 import 'shared_manager.dart';
@@ -25,10 +24,12 @@ class ApplicationInit {
     await Firebase.initializeApp(
         name: 'remindly-biyee',
         options: DefaultFirebaseOptions.currentPlatform);
+
     await FirebaseAppCheck.instance.activate(
-      androidProvider: AndroidProvider.debug,
-      appleProvider: AppleProvider.debug,
+      providerAndroid: AndroidDebugProvider(),
+      providerApple: AppleDebugProvider(),
     );
+
     await _initHive();
     await EasyLocalization.ensureInitialized();
     TimezoneInit().init();
@@ -36,6 +37,6 @@ class ApplicationInit {
   }
 
   Future<void> _initHive() async {
-    Hive.initFlutter();
+    await Hive.initFlutter();
   }
 }

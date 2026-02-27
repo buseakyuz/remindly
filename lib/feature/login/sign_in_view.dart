@@ -11,8 +11,8 @@ class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +93,7 @@ class _SignInViewState extends State<SignInView> {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text("Geleceğe Not Bırakmak İçin Hemen Giriş Yap.",
               style: TextStyle(
-                  color: Colors.black.withOpacity(0.5), fontSize: 18.0)),
+                  color: Colors.black.withValues(alpha: 0.5), fontSize: 18.0)),
         ),
       ],
     );
@@ -122,7 +122,7 @@ class _SignInViewState extends State<SignInView> {
       required TextEditingController controller}) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.2),
+          color: Colors.grey.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius)),
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -144,7 +144,7 @@ class _SignInViewState extends State<SignInView> {
     );
   }
 
-  signIn() {
+  void signIn() {
     context.read<UserContext>().signIn(
         email: _emailController.text, password: _passwordController.text);
   }

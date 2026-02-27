@@ -65,7 +65,7 @@ class _SignUpViewState extends State<SignUpView> {
                                 .textTheme
                                 .bodyMedium!
                                 .copyWith(
-                                    color: Colors.black.withOpacity(0.5),
+                                    color: Colors.black.withValues(alpha: 0.5),
                                     fontSize: 22.0)),
                         TextSpan(
                           recognizer: TapGestureRecognizer()
@@ -110,13 +110,13 @@ class _SignUpViewState extends State<SignUpView> {
                 text: " kabul ettiğinizi onaylarsınız.",
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: 20.0,
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withValues(alpha: 0.5),
                     )),
           ],
           text: "Devam ederek",
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontSize: 20.0,
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.black.withValues(alpha: 0.5),
               )),
     );
   }
@@ -165,7 +165,7 @@ class _SignUpViewState extends State<SignUpView> {
           padding: LayoutConstants.defaultVerticalPadding,
           child: Text("Geleceğe Not Bırakmak İçin Hemen Kayıt Ol.",
               style: TextStyle(
-                  color: Colors.black.withOpacity(0.5), fontSize: 18.0)),
+                  color: Colors.black.withValues(alpha: 0.5), fontSize: 18.0)),
         ),
       ],
     );
@@ -194,7 +194,7 @@ class _SignUpViewState extends State<SignUpView> {
       required TextEditingController controller}) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.grey.withOpacity(0.2),
+          color: Colors.grey.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius)),
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -216,7 +216,7 @@ class _SignUpViewState extends State<SignUpView> {
     );
   }
 
-  _singUp() {
+  void _singUp() {
     context.read<UserContext>().signUp(
         realName: realNameController.text,
         email: emailController.text,

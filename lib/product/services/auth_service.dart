@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../core/models/simple_result.dart';
 
 class AuthService {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<SimpleResult<User>> signUp(
       {required String realName,
@@ -27,7 +27,6 @@ class AuthService {
 
       return SimpleResult(isSuccess: true, data: response.user);
     } catch (e) {
-      print(e.toString());
       return SimpleResult(isSuccess: false, errorMessage: e.toString());
     }
   }

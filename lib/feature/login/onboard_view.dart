@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:remindly/core/constants/layout_constants.dart';
 import 'package:remindly/feature/login/sign_up_view.dart';
 
@@ -25,7 +23,7 @@ class _OnboardViewState extends State<OnboardView> {
           ),
           margin: EdgeInsets.zero,
           color: Colors.black,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             child: SafeArea(
                 top: false,

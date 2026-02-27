@@ -77,7 +77,7 @@ class _ProfileViewState extends State<ProfileView> {
                     Text("hatırlatma notu",
                         style: TextStyle(
                           fontSize: 20.0,
-                          color: Colors.black.withOpacity(0.5),
+                          color: Colors.black.withValues(alpha: 0.5),
                         ))
                   ],
                 ),
@@ -91,7 +91,7 @@ class _ProfileViewState extends State<ProfileView> {
                     Text("tarihinde katıldı.",
                         style: TextStyle(
                             fontSize: 20.0,
-                            color: Colors.black.withOpacity(0.5)))
+                            color: Colors.black.withValues(alpha: 0.5)))
                   ],
                 ),
               ],

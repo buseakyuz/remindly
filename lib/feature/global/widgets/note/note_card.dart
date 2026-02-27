@@ -76,7 +76,7 @@ class _NoteCardContent extends StatelessWidget {
         borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -97,14 +97,14 @@ class _NoteCardContent extends StatelessWidget {
               Text(
                 LocaleKeys.home_reminder_date.tr(),
                 style: context.textTheme.bodySmall?.copyWith(
-                  color: context.colorScheme.onSurface.withOpacity(0.6),
+                  color: context.colorScheme.onSurface.withValues(alpha: 0.6),
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
                 _formatDate(context, note.reminderDate),
                 style: context.textTheme.bodySmall?.copyWith(
-                  color: context.colorScheme.onSurface.withOpacity(0.6),
+                  color: context.colorScheme.onSurface.withValues(alpha: 0.6),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -123,7 +123,7 @@ class _NoteCardContent extends StatelessWidget {
             child: Text(
               _formatDate(context, note.creationDate),
               style: context.textTheme.labelSmall?.copyWith(
-                color: context.colorScheme.onSurface.withAlpha(100),
+                color: context.colorScheme.onSurface.withValues(alpha: 0.4),
               ),
             ),
           ),
