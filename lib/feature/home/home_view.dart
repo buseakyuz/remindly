@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:remindly/core/extension/context_extension.dart';
-import 'package:remindly/product/constants/asset_constants.dart';
 import 'package:remindly/product/providers/note/note_provider.dart';
+import 'package:remindly/product/providers/user/user_context.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:remindly/product/navigation/route_enums.dart';
@@ -54,9 +54,10 @@ class _HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.only(right: 16.0),
           child: GestureDetector(
             onTap: () => context.push(AppRoutes.profile.path),
-            child: const CircleAvatar(
+            child: CircleAvatar(
               backgroundColor: Colors.white,
-              backgroundImage: AssetImage(AssetConstants.defaultAvatar),
+              backgroundImage:
+                  AssetImage(context.watch<UserContext>().avatarPath),
             ),
           ),
         )

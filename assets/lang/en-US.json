@@ -38,5 +38,19 @@
         "backup": "Backup & Restore",
         "settings": "Settings",
         "contact_us": "Contact Us"
+    },
+    "profile": {
+        "title": "Profile",
+        "reminder_note": "reminder notes",
+        "joined_date": "joined on",
+        "user_info": "User Information",
+        "user_info_sub": "Edit your details.",
+        "password_actions": "Password Actions",
+        "password_actions_sub": "Change your password.",
+        "terms": "Terms and Conditions",
+        "terms_sub": "Review documents.",
+        "change_language": "Change Language",
+        "change_language_sub": "Change app language.",
+        "logout": "Log Out"
     }
 }

@@ -38,5 +38,19 @@
         "backup": "Yedekleme & Geri Yükleme",
         "settings": "Ayarlar",
         "contact_us": "Bize Ulaşın"
+    },
+    "profile": {
+        "title": "Profil",
+        "reminder_note": "hatırlatma notu",
+        "joined_date": "tarihinde katıldı.",
+        "user_info": "Kullanıcı Bilgileri",
+        "user_info_sub": "Bilgilerini düzenle.",
+        "password_actions": "Şifre İşlemleri",
+        "password_actions_sub": "Şifreni değiştir.",
+        "terms": "Kullanım Koşulları ve Şartname",
+        "terms_sub": "Belgeleri incele.",
+        "change_language": "Dili Değiştir",
+        "change_language_sub": "Uygulama dilini değiştir.",
+        "logout": "Çıkış Yap"
     }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:remindly/product/providers/user/user_context.dart';
 
 import '../../../../core/constants/layout_constants.dart';
 
@@ -25,27 +27,36 @@ class _SelectAvatarViewState extends State<SelectAvatarView> {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(width: 2.0)),
-                      child: Image.asset("assets/avatars/0.png")),
+                      child:
+                          Image.asset(context.watch<UserContext>().avatarPath)),
                 )),
             Expanded(
               flex: 1,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 16,
-                itemBuilder: (context, index) => ClipOval(
-                  clipBehavior: Clip.hardEdge,
-                  child: Container(
+                itemBuilder: (context, index) {
+                  final itemPath = "assets/avatars/$index.png";
+                  return GestureDetector(
+                    onTap: () {
+                      context.read<UserContext>().updateAvatar(itemPath);
+                    },
+                    child: ClipOval(
                       clipBehavior: Clip.hardEdge,
-                      margin: EdgeInsets.symmetric(horizontal: 4.0),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(width: 2.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Image.asset("assets/avatars/$index.png"),
-                      )),
-                ),
+                      child: Container(
+                          clipBehavior: Clip.hardEdge,
+                          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(width: 2.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8.0),
+                            child: Image.asset(itemPath),
+                          )),
+                    ),
+                  );
+                },
               ),
             )
           ],

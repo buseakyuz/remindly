@@ -1,5 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:remindly/core/constants/layout_constants.dart';
+import 'package:remindly/core/extension/context_extension.dart';
+import 'package:remindly/product/lang/locale_keys.g.dart';
+import 'package:remindly/product/providers/note/note_provider.dart';
+import 'package:remindly/product/providers/user/user_context.dart';
 import '../global/screens/avatar/select_avatar_view.dart';
 
 class ProfileView extends StatefulWidget {
@@ -12,12 +19,26 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
+    final userContext = context.watch<UserContext>();
+    final noteProvider = context.watch<NoteProvider>();
+
+    final userName = userContext.userData?.realname ??
+        userContext.authUser?.displayName ??
+        'Kullanıcı';
+
+    final noteCount = noteProvider.allNotes?.length.toString() ?? "0";
+
+    final createdDate = userContext.userData?.createDate;
+    final formattedDate = createdDate != null
+        ? DateFormat("dd.MM.yyyy").format(createdDate)
+        : "-";
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Profile",
-          style: TextStyle(fontSize: 22.0),
+          LocaleKeys.profile_title.tr(),
+          style: context.textTheme.titleLarge,
         ),
       ),
       body: Padding(
@@ -25,139 +46,239 @@ class _ProfileViewState extends State<ProfileView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Center(
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  SizedBox(
-                    width: 84.0,
-                    height: 84.0,
-                    child: GestureDetector(
-                      onTap: _selectAvatar,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        backgroundImage: AssetImage("assets/avatars/0.png"),
-                      ),
-                    ),
-                  ),
-                  Container(
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(Icons.edit, color: Colors.white, size: 18),
-                      )),
-                ],
-              ),
-            ),
+            _buildAvatarSection(context),
+            LayoutConstants.lowEmptyHeight,
             Text(
-              "Buse Akyüz",
-              style: TextStyle(fontSize: 28.0),
+              userName,
+              style: context.textTheme.headlineMedium,
             ),
-            Divider(
-              indent: 12.0,
-              endIndent: 12.0,
-              thickness: 0.5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Wrap(
-                  direction: Axis.vertical,
-                  children: [
-                    Text(
-                      "20",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.black,
-                      ),
-                    ),
-                    Text("hatırlatma notu",
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.black.withValues(alpha: 0.5),
-                        ))
-                  ],
-                ),
-                Wrap(
-                  direction: Axis.vertical,
-                  children: [
-                    Text(
-                      "12.12.2022",
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),
-                    ),
-                    Text("tarihinde katıldı.",
-                        style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.black.withValues(alpha: 0.5)))
-                  ],
-                ),
-              ],
-            ),
-            LayoutConstants.defaultEmptyHeight,
-            ListView(
-              shrinkWrap: true,
-              children: [
-                ListTile(
-                  title: Text('Kullanıcı Bilgileri',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  subtitle: Text('Bilgilerini düzenle.',
-                      style: TextStyle(fontSize: 20.0)),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-                ListTile(
-                  title: Text('Şifre İşlemleri',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  subtitle: Text('Şifreni değiştir.',
-                      style: TextStyle(fontSize: 20.0)),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-                ListTile(
-                  title: Text('Kullanım Koşulları ve Şartmane',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  subtitle: Text('Belgeleri incele.',
-                      style: TextStyle(fontSize: 20.0)),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-                ListTile(
-                  title: Text('Çıkış Yap',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  trailing: Icon(
-                    Icons.logout,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            )
+            const Divider(indent: 12.0, endIndent: 12.0, thickness: 0.5),
+            _buildStatisticsRow(context, noteCount, formattedDate),
+            const Divider(indent: 12.0, endIndent: 12.0, thickness: 0.5),
+            _buildActionList(context),
           ],
         ),
       ),
     );
   }
 
+  Widget _buildAvatarSection(BuildContext context) {
+    return Center(
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          SizedBox(
+            width: 84.0,
+            height: 84.0,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              backgroundImage:
+                  AssetImage(context.watch<UserContext>().avatarPath),
+            ),
+          ),
+          GestureDetector(
+            onTap: _selectAvatar,
+            child: Container(
+              decoration: BoxDecoration(
+                color: context.colorScheme.primary,
+                shape: BoxShape.circle,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(Icons.edit,
+                    color: context.colorScheme.onPrimary, size: 18),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildStatisticsRow(
+      BuildContext context, String noteCount, String joinDate) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        _buildStatItem(
+          context,
+          title: noteCount,
+          subtitle: LocaleKeys.profile_reminder_note.tr(),
+        ),
+        _buildStatItem(
+          context,
+          title: joinDate,
+          subtitle: LocaleKeys.profile_joined_date.tr(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatItem(BuildContext context,
+      {required String title, required String subtitle}) {
+    return Wrap(
+      direction: Axis.vertical,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        Text(
+          title,
+          style: context.textTheme.titleLarge
+              ?.copyWith(fontWeight: FontWeight.bold),
+        ),
+        Text(
+          subtitle,
+          style: context.textTheme.titleMedium?.copyWith(
+            color: context.colorScheme.onSurface.withValues(alpha: 0.5),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Expanded _buildActionList(BuildContext context) {
+    return Expanded(
+      flex: 4,
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          _ProfileListTile(
+            title: LocaleKeys.profile_user_info.tr(),
+            subtitle: LocaleKeys.profile_user_info_sub.tr(),
+            icon: Icons.chevron_right,
+            onTap: () {},
+          ),
+          _ProfileListTile(
+            title: LocaleKeys.profile_password_actions.tr(),
+            subtitle: LocaleKeys.profile_password_actions_sub.tr(),
+            icon: Icons.chevron_right,
+            onTap: () {},
+          ),
+          _ProfileListTile(
+            title: LocaleKeys.profile_terms.tr(),
+            subtitle: LocaleKeys.profile_terms_sub.tr(),
+            icon: Icons.chevron_right,
+            onTap: () {},
+          ),
+          _ProfileListTile(
+            title: LocaleKeys.profile_change_language.tr(),
+            subtitle: LocaleKeys.profile_change_language_sub.tr(),
+            icon: Icons.language,
+            onTap: () => _showLanguageSelection(context),
+          ),
+          _ProfileListTile(
+            title: LocaleKeys.profile_logout.tr(),
+            icon: Icons.logout,
+            iconColor: context.colorScheme.error,
+            textColor: context.colorScheme.error,
+            onTap: () {},
+          ),
+        ],
+      ),
+    );
+  }
+
   void _selectAvatar() {
     showModalBottomSheet(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(44.0)),
-        context: context,
-        builder: (context) => SelectAvatarView());
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(44.0)),
+      context: context,
+      builder: (context) => SelectAvatarView(),
+    );
+  }
+
+  void _showLanguageSelection(BuildContext context) {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24.0)),
+      ),
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  LocaleKeys.profile_change_language.tr(),
+                  style: context.textTheme.titleLarge
+                      ?.copyWith(fontWeight: FontWeight.bold),
+                ),
+                LayoutConstants.defaultEmptyHeight,
+                ListTile(
+                  leading: const Text("🇹🇷", style: TextStyle(fontSize: 24)),
+                  title: const Text('Türkçe',
+                      style: TextStyle(fontWeight: FontWeight.w500)),
+                  trailing: context.locale.languageCode == 'tr'
+                      ? Icon(Icons.check_circle,
+                          color: context.colorScheme.primary)
+                      : null,
+                  onTap: () {
+                    context.setLocale(const Locale('tr', 'TR'));
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: const Text("🇺🇸", style: TextStyle(fontSize: 24)),
+                  title: const Text('English',
+                      style: TextStyle(fontWeight: FontWeight.w500)),
+                  trailing: context.locale.languageCode == 'en'
+                      ? Icon(Icons.check_circle,
+                          color: context.colorScheme.primary)
+                      : null,
+                  onTap: () {
+                    context.setLocale(const Locale('en', 'US'));
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _ProfileListTile extends StatelessWidget {
+  final String title;
+  final String? subtitle;
+  final IconData icon;
+  final Color? iconColor;
+  final Color? textColor;
+  final VoidCallback onTap;
+
+  const _ProfileListTile({
+    required this.title,
+    this.subtitle,
+    required this.icon,
+    required this.onTap,
+    this.iconColor,
+    this.textColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onTap,
+      title: Text(
+        title,
+        style: context.textTheme.titleMedium?.copyWith(
+          fontWeight: FontWeight.bold,
+          color: textColor ?? context.colorScheme.onSurface,
+        ),
+      ),
+      subtitle: subtitle != null
+          ? Text(
+              subtitle ?? "",
+              style: context.textTheme.bodyMedium?.copyWith(
+                color: context.colorScheme.onSurface.withValues(alpha: 0.7),
+              ),
+            )
+          : null,
+      trailing: Icon(
+        icon,
+        color: iconColor ?? context.colorScheme.onSurface,
+      ),
+    );
   }
 }

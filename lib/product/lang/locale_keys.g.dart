@@ -2,13 +2,14 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const app_name = 'app_name';
   static const go_on = 'go_on';
   static const okey = 'okey';
   static const dialog_auth_error = 'dialog.auth_error';
   static const dialog = 'dialog';
-  static const error_accountExistsDifferentCredential = 'error.accountExistsDifferentCredential';
+  static const error_accountExistsDifferentCredential =
+      'error.accountExistsDifferentCredential';
   static const error_unknown = 'error.unknown';
   static const error_wrongPassword = 'error.wrongPassword';
   static const error_weakPassword = 'error.weakPassword';
@@ -19,7 +20,8 @@ abstract class  LocaleKeys {
   static const error_emailNotCatch = 'error.emailNotCatch';
   static const error = 'error';
   static const form_enter_a_valid_mail = 'form.enter_a_valid_mail';
-  static const form_password_must_be_long_character = 'form.password_must_be_long_character';
+  static const form_password_must_be_long_character =
+      'form.password_must_be_long_character';
   static const form_password_must_match = 'form.password_must_match';
   static const form = 'form';
   static const home_notes_title = 'home.notes_title';
@@ -38,5 +40,17 @@ abstract class  LocaleKeys {
   static const drawer_settings = 'drawer.settings';
   static const drawer_contact_us = 'drawer.contact_us';
   static const drawer = 'drawer';
-
+  static const profile_title = 'profile.title';
+  static const profile_reminder_note = 'profile.reminder_note';
+  static const profile_joined_date = 'profile.joined_date';
+  static const profile_user_info = 'profile.user_info';
+  static const profile_user_info_sub = 'profile.user_info_sub';
+  static const profile_password_actions = 'profile.password_actions';
+  static const profile_password_actions_sub = 'profile.password_actions_sub';
+  static const profile_terms = 'profile.terms';
+  static const profile_terms_sub = 'profile.terms_sub';
+  static const profile_change_language = 'profile.change_language';
+  static const profile_change_language_sub = 'profile.change_language_sub';
+  static const profile_logout = 'profile.logout';
+  static const profile = 'profile';
 }
