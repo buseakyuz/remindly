@@ -14,11 +14,29 @@
         "userAlreadyWrited": "Kullanıcı zaten sistemde kayıtlı.",
         "tooManyRequests": "Birçok başarısız oturum açma girişimi nedeniyle bu hesaba erişim geçici olarak devre dışı bırakıldı. Şifrenizi sıfırlayarak hemen geri yükleyebilir veya daha sonra tekrar deneyebilirsiniz.",
         "emailAlreadyInUse": "E-posta adresi zaten başka bir hesap tarafından kullanılıyor.",
-        "emailNotCatch" : "Seçtiğiniz hesaptan email adresi çekilemedi. Lütfen başka bir hesapla tekrar deneyin."
+        "emailNotCatch": "Seçtiğiniz hesaptan email adresi çekilemedi. Lütfen başka bir hesapla tekrar deneyin."
     },
     "form": {
         "enter_a_valid_mail": "Geçerli bir e-posta adresi gir",
         "password_must_be_long_character": "Parola 6 karakter veya daha uzun olmalıdır",
         "password_must_match": "Parolalar birbiriyle aynı olmalıdır"
+    },
+    "home": {
+        "notes_title": "Notlarınız;",
+        "no_notes": "Henüz notunuz yok.",
+        "total_notes_count": "Geleceğe {} not bıraktınız.",
+        "create_note": "Not oluştur",
+        "title_hint": "Başlık",
+        "content_hint": "Notunuzu giriniz.",
+        "select_date": "Tarih seçmek için dokun.",
+        "delete": "Sil",
+        "reminder_date": "Hatırlatma Tarihi"
+    },
+    "drawer": {
+        "active_reminders": "Aktif Hatırlatıcılar",
+        "categories": "Kategoriler",
+        "backup": "Yedekleme & Geri Yükleme",
+        "settings": "Ayarlar",
+        "contact_us": "Bize Ulaşın"
     }
 }

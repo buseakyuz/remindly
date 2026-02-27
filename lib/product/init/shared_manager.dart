@@ -1,10 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedManager {
-  static SharedManager? _instace;
+  static SharedManager? _instance;
   static SharedManager get instance {
-    _instace ??= SharedManager._init();
-    return _instace!;
+    _instance ??= SharedManager._init();
+    return _instance!;
   }
 
   SharedManager._init();

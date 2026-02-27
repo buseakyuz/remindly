@@ -1,29 +1,29 @@
 class AppHexColors {
-  static const String PRIMARY_COLOR = '#151515';
-  static const String SECONDARY_COLOR = '#6056EB';
-  static const String ERROR_COLOR = '#c20034';
-  static const String BLACK_COLOR = '#151515';
+  static const String primary = '#151515';
+  static const String secondary = '#6056EB';
+  static const String error = '#c20034';
+  static const String black = '#151515';
 
   //LIGHT THEME COLORS
-  static const String LIGHT_THEME_BACKGROUND = '#f7f7fa';
-  static const String LIGHT_THEME_LAYER = '#ffffff';
-  static const String LIGHT_THEME_LABEL = '#e6e7ed';
-  static const String LIGHT_THEME_TITLE_TEXT = '#303145';
-  static const String LIGHT_THEME_BODY_TEXT = '#6c6e84';
+  static const String lightThemeBackground = '#f7f7fa';
+  static const String lightThemeLayer = '#ffffff';
+  static const String lightThemeLabel = '#e6e7ed';
+  static const String lightThemeTitleText = '#303145';
+  static const String lightThemeBodyText = '#6c6e84';
 
   //DARK THEME COLORS
-  static const String DARK_THEME_BACKGROUND = '#1c1c28';
-  static const String DARK_THEME_LAYER = '#28293d';
-  static const String DARK_THEME_LABEL = '#33323d';
-  static const String DARK_THEME_TITLE_TEXT = '#f6f6f7';
-  static const String DARK_THEME_BODY_TEXT = '#78798e';
+  static const String darkThemeBackground = '#1c1c28';
+  static const String darkThemeLayer = '#28293d';
+  static const String darkThemeLabel = '#33323d';
+  static const String darkThemeTitleText = '#f6f6f7';
+  static const String darkThemeBodyText = '#78798e';
 
   //CUSTOM COLORS
-  static const String FACEBOOK_COLOR = '#4267B2';
-  static const String TWITTER_COLOR = '#1DA1F2';
-  static const String GOOGLE_COLOR = '#DB4437';
-  static const String APPLE_COLOR = '#000000';
-  static const List<String> INSTAGRAM_COLORS = [
+  static const String facebook = '#4267B2';
+  static const String twitter = '#1DA1F2';
+  static const String google = '#DB4437';
+  static const String apple = '#000000';
+  static const List<String> instagramColors = [
     '#405DE6',
     '#5B51D8',
     '#833AB4',
@@ -35,5 +35,5 @@ class AppHexColors {
     '#FCAF45',
     '#FFDC80'
   ];
-  static const String INSTAGRAM_COLOR = '#E1306C';
+  static const String instagram = '#E1306C';
 }

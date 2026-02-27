@@ -47,7 +47,7 @@ class _MyApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         theme: context.watch<ThemeManager>().currentTheme,
-        home: OnboardView(),
+        home: HomeView(),
       ),
     );
   }

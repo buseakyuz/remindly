@@ -25,7 +25,10 @@ class ApplicationInit {
     await Firebase.initializeApp(
         name: 'remindly-biyee',
         options: DefaultFirebaseOptions.currentPlatform);
-    await FirebaseAppCheck.instance.activate();
+    await FirebaseAppCheck.instance.activate(
+      androidProvider: AndroidProvider.debug,
+      appleProvider: AppleProvider.debug,
+    );
     await _initHive();
     await EasyLocalization.ensureInitialized();
     TimezoneInit().init();

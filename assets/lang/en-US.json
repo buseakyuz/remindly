@@ -20,5 +20,23 @@
         "enter_a_valid_mail": "Enter a valid e-mail address",
         "password_must_be_long_character": "Password should be 6 characters or longer",
         "password_must_match": "Passwords must be the same"
+    },
+    "home": {
+        "notes_title": "Your Notes;",
+        "no_notes": "You don't have any notes yet.",
+        "total_notes_count": "You left {} notes for the future.",
+        "create_note": "Create note",
+        "title_hint": "Title",
+        "content_hint": "Enter your note.",
+        "select_date": "Tap to select date.",
+        "delete": "Delete",
+        "reminder_date": "Reminder Date"
+    },
+    "drawer": {
+        "active_reminders": "Active Reminders",
+        "categories": "Categories",
+        "backup": "Backup & Restore",
+        "settings": "Settings",
+        "contact_us": "Contact Us"
     }
 }

@@ -9,28 +9,28 @@ class ThemeStyles {
   // Global
   static final TextStyle fontStyle = GoogleFonts.caveat();
   static final TextTheme fontTheme = GoogleFonts.caveatTextTheme();
-  static Color get primaryColor => HexColor(AppHexColors.PRIMARY_COLOR);
-  static Color get secondaryColor => HexColor(AppHexColors.SECONDARY_COLOR);
-  static Color get errorColor => HexColor(AppHexColors.ERROR_COLOR);
-  static Color get blackColor => HexColor(AppHexColors.BLACK_COLOR);
+  static Color get primaryColor => HexColor(AppHexColors.primary);
+  static Color get secondaryColor => HexColor(AppHexColors.secondary);
+  static Color get errorColor => HexColor(AppHexColors.error);
+  static Color get blackColor => HexColor(AppHexColors.black);
   // DARK THEME
 
   static Color get darkBackground =>
-      HexColor(AppHexColors.DARK_THEME_BACKGROUND);
-  static Color get darkLayer => HexColor(AppHexColors.DARK_THEME_LAYER);
-  static Color get darkLabel => HexColor(AppHexColors.DARK_THEME_LABEL);
+      HexColor(AppHexColors.darkThemeBackground);
+  static Color get darkLayer => HexColor(AppHexColors.darkThemeLayer);
+  static Color get darkLabel => HexColor(AppHexColors.darkThemeLabel);
   static Color get darkTitleText =>
-      HexColor(AppHexColors.DARK_THEME_TITLE_TEXT);
-  static Color get darkBodyText => HexColor(AppHexColors.DARK_THEME_BODY_TEXT);
+      HexColor(AppHexColors.darkThemeTitleText);
+  static Color get darkBodyText => HexColor(AppHexColors.darkThemeBodyText);
 
   static Color get lightBackground =>
-      HexColor(AppHexColors.LIGHT_THEME_BACKGROUND);
-  static Color get lightLayer => HexColor(AppHexColors.LIGHT_THEME_LAYER);
-  static Color get lightLabel => HexColor(AppHexColors.LIGHT_THEME_LABEL);
+      HexColor(AppHexColors.lightThemeBackground);
+  static Color get lightLayer => HexColor(AppHexColors.lightThemeLayer);
+  static Color get lightLabel => HexColor(AppHexColors.lightThemeLabel);
   static Color get lightTitleText =>
-      HexColor(AppHexColors.LIGHT_THEME_TITLE_TEXT);
+      HexColor(AppHexColors.lightThemeTitleText);
   static Color get lightBodyText =>
-      HexColor(AppHexColors.LIGHT_THEME_BODY_TEXT);
+      HexColor(AppHexColors.lightThemeBodyText);
 
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: darkBackground,
@@ -39,12 +39,11 @@ class ThemeStyles {
     primaryColor: primaryColor,
     brightness: Brightness.dark,
     focusColor: primaryColor,
-    indicatorColor: primaryColor,
     listTileTheme: ListTileThemeData(textColor: darkBodyText),
-    tabBarTheme: TabBarTheme(labelColor: darkTitleText),
+    tabBarTheme: TabBarThemeData(labelColor: darkTitleText, indicatorColor: primaryColor),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: darkBodyText.withOpacity(0.4), width: 2),
+        borderSide: BorderSide(color: darkBodyText.withAlpha((0.4 * 255).toInt()), width: 2),
       ),
     ),
     textSelectionTheme: TextSelectionThemeData(cursorColor: primaryColor),
@@ -62,25 +61,13 @@ class ThemeStyles {
         foregroundColor: darkTitleText,
         centerTitle: false),
     primaryTextTheme: fontTheme.copyWith(
-      headline6: fontStyle.copyWith(
+      titleLarge: fontStyle.copyWith(
         color: darkTitleText,
       ),
     ),
-    textTheme: fontTheme
-        .copyWith(
-          bodyText1: fontStyle.copyWith(color: darkBodyText),
-          bodyText2: fontStyle.copyWith(color: darkBodyText),
-          headline1: fontStyle.copyWith(color: darkTitleText),
-          headline2: fontStyle.copyWith(color: darkTitleText),
-          headline3: fontStyle.copyWith(color: darkTitleText),
-          headline4: fontStyle.copyWith(color: darkTitleText),
-          headline5: fontStyle.copyWith(color: darkTitleText),
-          headline6: fontStyle.copyWith(color: darkTitleText),
-        )
-        .apply(bodyColor: darkTitleText),
+    textTheme: fontTheme.apply(bodyColor: darkTitleText),
     cardColor: darkLayer,
-    backgroundColor: darkBackground,
-    dialogBackgroundColor: darkLayer,
+    dialogTheme: DialogThemeData(backgroundColor: darkLayer),
   );
 
   // LIGHT THEME
@@ -90,13 +77,12 @@ class ThemeStyles {
     primaryColor: primaryColor,
     colorScheme: _colorSchemeLight,
     focusColor: primaryColor,
-    indicatorColor: primaryColor,
     listTileTheme: ListTileThemeData(textColor: lightBodyText),
-    tabBarTheme: TabBarTheme(labelColor: lightTitleText),
+    tabBarTheme: TabBarThemeData(labelColor: lightTitleText, indicatorColor: primaryColor),
     progressIndicatorTheme: ProgressIndicatorThemeData(
         color: primaryColor,
-        linearTrackColor: primaryColor.withOpacity(0.5),
-        circularTrackColor: primaryColor.withOpacity(0.5),
+        linearTrackColor: primaryColor.withAlpha((0.5 * 255).toInt()),
+        circularTrackColor: primaryColor.withAlpha((0.5 * 255).toInt()),
         refreshBackgroundColor: primaryColor),
     textSelectionTheme: TextSelectionThemeData(cursorColor: primaryColor),
     shadowColor: lightLabel,
@@ -104,7 +90,7 @@ class ThemeStyles {
     inputDecorationTheme: InputDecorationTheme(
       enabledBorder: OutlineInputBorder(
           borderSide:
-              BorderSide(color: lightBodyText.withOpacity(0.4), width: 2),
+              BorderSide(color: lightBodyText.withAlpha((0.4 * 255).toInt()), width: 2),
           borderRadius: BorderRadius.circular(10)),
       border: OutlineInputBorder(
         borderSide: const BorderSide(width: 2),
@@ -126,50 +112,34 @@ class ThemeStyles {
         foregroundColor: lightTitleText,
         centerTitle: false),
     primaryTextTheme: fontTheme.copyWith(
-      headline6: fontStyle.copyWith(
+      titleLarge: fontStyle.copyWith(
         color: lightTitleText,
       ),
     ),
-    textTheme: fontTheme
-        .copyWith(
-          bodyText1: fontStyle.copyWith(color: lightBodyText),
-          bodyText2: fontStyle.copyWith(color: lightBodyText),
-          headline1: fontStyle.copyWith(color: lightTitleText),
-          headline2: fontStyle.copyWith(color: lightTitleText),
-          headline3: fontStyle.copyWith(color: lightTitleText),
-          headline4: fontStyle.copyWith(color: lightTitleText),
-          headline5: fontStyle.copyWith(color: lightTitleText),
-          headline6: fontStyle.copyWith(color: lightTitleText),
-        )
-        .apply(bodyColor: lightTitleText),
+    textTheme: fontTheme.apply(bodyColor: lightTitleText).copyWith(),
     cardColor: lightLayer,
-    backgroundColor: lightBackground,
-    dialogBackgroundColor: lightLayer,
+    dialogTheme: DialogThemeData(backgroundColor: lightLayer),
   );
 
-  static get _colorSchemeLight => ColorScheme(
+  static ColorScheme get _colorSchemeLight => ColorScheme(
       brightness: Brightness.light,
       primary: primaryColor,
-      onPrimary: primaryColor,
+      onPrimary: Colors.white,
       secondary: secondaryColor,
-      onSecondary: secondaryColor,
+      onSecondary: Colors.white,
       error: errorColor,
-      onError: errorColor,
-      background: lightBackground,
-      onBackground: lightBackground,
-      surface: lightLabel,
-      onSurface: lightLabel);
+      onError: Colors.white,
+      surface: lightBackground,
+      onSurface: lightTitleText);
 
-  static get _colorSchemeDark => ColorScheme(
+  static ColorScheme get _colorSchemeDark => ColorScheme(
       brightness: Brightness.dark,
       primary: primaryColor,
-      onPrimary: primaryColor,
+      onPrimary: Colors.white,
       secondary: secondaryColor,
-      onSecondary: secondaryColor,
+      onSecondary: Colors.white,
       error: errorColor,
-      onError: errorColor,
-      background: darkBackground,
-      onBackground: darkBackground,
-      surface: darkLabel,
-      onSurface: darkLabel);
+      onError: Colors.white,
+      surface: darkBackground,
+      onSurface: darkTitleText);
 }

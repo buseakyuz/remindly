@@ -63,7 +63,7 @@ class _SignUpViewState extends State<SignUpView> {
                             text: "Zaten bir hesabın var mı?",
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1!
+                                .bodyMedium!
                                 .copyWith(
                                     color: Colors.black.withOpacity(0.5),
                                     fontSize: 22.0)),
@@ -78,7 +78,7 @@ class _SignUpViewState extends State<SignUpView> {
                           text: " Giriş Yap.",
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1!
+                              .bodyMedium!
                               .copyWith(
                                   color: Colors.black,
                                   fontSize: 22.0,
@@ -104,17 +104,17 @@ class _SignUpViewState extends State<SignUpView> {
                 text: " hüküm ve koşullarımızı",
                 style: Theme.of(context)
                     .textTheme
-                    .bodyText1!
+                    .bodyMedium!
                     .copyWith(color: Colors.black, fontSize: 20.0)),
             TextSpan(
                 text: " kabul ettiğinizi onaylarsınız.",
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: 20.0,
                       color: Colors.black.withOpacity(0.5),
                     )),
           ],
           text: "Devam ederek",
-          style: Theme.of(context).textTheme.bodyText1!.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontSize: 20.0,
                 color: Colors.black.withOpacity(0.5),
               )),
