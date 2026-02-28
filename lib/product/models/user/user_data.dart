@@ -17,7 +17,6 @@ class UserData {
   List<String>? notificationIds;
   int authType;
   String emailAddress;
-  String password;
   String? username;
   String? realname;
   String? phoneNumber;
@@ -73,7 +72,6 @@ class UserData {
     this.notificationIds,
     required this.authType,
     required this.emailAddress,
-    required this.password,
     this.username,
     this.realname,
     this.phoneNumber,
@@ -121,13 +119,16 @@ class UserData {
     this.accountVerifiedDate,
   });
 
-  factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
+  factory UserData.fromJson(Map<String, dynamic> json) =>
+      _$UserDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserDataToJson(this);
 }
 
 DateTime? _datetimeFromTimestamp(Timestamp? timestamp) {
-  return timestamp != null ? DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch) : null;
+  return timestamp != null
+      ? DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch)
+      : null;
 }
 
 Timestamp? _dateTimeToTimestamp(DateTime? datetime) {

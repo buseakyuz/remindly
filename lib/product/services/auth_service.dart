@@ -6,15 +6,17 @@ import '../constants/error_constants.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<SimpleResult<User>> signUp(
-      {required String realName,
-      required String email,
-      required String password}) async {
+  Future<SimpleResult<User>> signUp({
+    required String realName,
+    required String email,
+    required String password,
+  }) async {
     try {
       var response = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
       await response.user?.updateDisplayName(realName);
-
       // Refresh the user to get the updated displayName
       await response.user?.reload();
       final updatedUser = _auth.currentUser;
@@ -23,27 +25,33 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       final errorType = _mapFirebaseError(e.code);
       return SimpleResult(
-          isSuccess: false,
-          errorType: errorType,
-          errorMessage: errorType.toLocaleMessage);
+        isSuccess: false,
+        errorType: errorType,
+        errorMessage: errorType.toLocaleMessage,
+      );
     } catch (e) {
       return SimpleResult(isSuccess: false, errorMessage: e.toString());
     }
   }
 
-  Future<SimpleResult<User>> signIn(
-      {required String email, required String password}) async {
+  Future<SimpleResult<User>> signIn({
+    required String email,
+    required String password,
+  }) async {
     try {
       var response = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
 
       return SimpleResult(isSuccess: true, data: response.user);
     } on FirebaseAuthException catch (e) {
       final errorType = _mapFirebaseError(e.code);
       return SimpleResult(
-          isSuccess: false,
-          errorType: errorType,
-          errorMessage: errorType.toLocaleMessage);
+        isSuccess: false,
+        errorType: errorType,
+        errorMessage: errorType.toLocaleMessage,
+      );
     } catch (e) {
       return SimpleResult(isSuccess: false, errorMessage: e.toString());
     }
@@ -60,9 +68,10 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       final errorType = _mapFirebaseError(e.code);
       return SimpleResult(
-          isSuccess: false,
-          errorType: errorType,
-          errorMessage: errorType.toLocaleMessage);
+        isSuccess: false,
+        errorType: errorType,
+        errorMessage: errorType.toLocaleMessage,
+      );
     } catch (e) {
       return SimpleResult(isSuccess: false, errorMessage: e.toString());
     }

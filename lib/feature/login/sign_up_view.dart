@@ -43,23 +43,30 @@ class _SignUpViewState extends State<SignUpView> {
 
     _setLoading(true);
 
-    final result = await context.read<UserContext>().signUp(
-          realName: realNameController.text.trim(),
-          email: emailController.text.trim(),
-          password: passwordController.text.trim(),
-        );
-
-    _setLoading(false);
-
-    if (!mounted) return;
-
-    if (result.isSuccess) {
-      context.go(AppRoutes.home.path);
-    } else {
-      CustomErrorDialog(context).show(
-        title: LocaleKeys.dialog_auth_error.tr(),
-        description: result.errorMessage ?? LocaleKeys.error_unknown.tr(),
+    try {
+      final result = await context.read<UserContext>().signUp(
+        realName: realNameController.text.trim(),
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
+
+      _setLoading(false);
+
+      if (!mounted) return;
+
+      if (result.isSuccess) {
+        context.go(AppRoutes.home.path);
+      } else {
+        CustomErrorDialog(context).show(
+          title: LocaleKeys.dialog_auth_error.tr(),
+          description: result.errorMessage ?? LocaleKeys.error_unknown.tr(),
+        );
+      }
+    } catch (e, stack) {
+      _setLoading(false);
+      CustomErrorDialog(
+        context,
+      ).show(title: "Exception occurrrred!", description: "$e\n$stack");
     }
   }
 
@@ -122,29 +129,32 @@ class _SignUpViewState extends State<SignUpView> {
                   LayoutConstants.highEmptyHeight,
                   Center(
                     child: RichText(
-                      text: TextSpan(children: [
-                        TextSpan(
-                          text:
-                              "${LocaleKeys.login_already_have_account.tr()} ",
-                          style: context.textTheme.bodyMedium?.copyWith(
-                            color: context.colorScheme.onSurface
-                                .withValues(alpha: 0.5),
-                            fontSize: 18.0,
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text:
+                                "${LocaleKeys.login_already_have_account.tr()} ",
+                            style: context.textTheme.bodyMedium?.copyWith(
+                              color: context.colorScheme.onSurface.withValues(
+                                alpha: 0.5,
+                              ),
+                              fontSize: 18.0,
+                            ),
                           ),
-                        ),
-                        TextSpan(
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              context.push(AppRoutes.signIn.path);
-                            },
-                          text: LocaleKeys.login_sign_in.tr(),
-                          style: context.textTheme.bodyMedium?.copyWith(
-                            color: context.colorScheme.primary,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
+                          TextSpan(
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                context.push(AppRoutes.signIn.path);
+                              },
+                            text: LocaleKeys.login_sign_in.tr(),
+                            style: context.textTheme.bodyMedium?.copyWith(
+                              color: context.colorScheme.primary,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ]),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -163,9 +173,7 @@ class _SignUpViewState extends State<SignUpView> {
         children: [
           TextSpan(
             text: LocaleKeys.login_privacy_policy_1.tr(),
-            style: context.textTheme.bodyMedium?.copyWith(
-              fontSize: 16.0,
-            ),
+            style: context.textTheme.bodyMedium?.copyWith(fontSize: 16.0),
           ),
           TextSpan(
             text: LocaleKeys.login_privacy_policy_2.tr(),
@@ -177,9 +185,7 @@ class _SignUpViewState extends State<SignUpView> {
           ),
           TextSpan(
             text: LocaleKeys.login_privacy_policy_3.tr(),
-            style: context.textTheme.bodyMedium?.copyWith(
-              fontSize: 16.0,
-            ),
+            style: context.textTheme.bodyMedium?.copyWith(fontSize: 16.0),
           ),
         ],
       ),

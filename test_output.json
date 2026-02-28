@@ -1,0 +1,13 @@
+{"protocolVersion":"0.1.1","runnerVersion":null,"pid":19094,"type":"start","time":0}
+{"suite":{"id":0,"platform":"vm","path":"/Users/akyuz/FlutterProjects/remindly/test/widget_test.dart"},"type":"suite","time":0}
+{"test":{"id":1,"name":"loading /Users/akyuz/FlutterProjects/remindly/test/widget_test.dart","suiteID":0,"groupIDs":[],"metadata":{"skip":false,"skipReason":null},"line":null,"column":null,"url":null},"type":"testStart","time":2}
+{"count":1,"time":7,"type":"allSuites"}
+
+[{"event":"test.startedProcess","params":{"vmServiceUri":null}}]
+{"testID":1,"result":"success","skipped":false,"hidden":true,"type":"testDone","time":1364}
+{"group":{"id":2,"suiteID":0,"parentID":null,"name":"","metadata":{"skip":false,"skipReason":null},"testCount":1,"line":null,"column":null,"url":null},"type":"group","time":1365}
+{"test":{"id":3,"name":"Counter increments smoke test","suiteID":0,"groupIDs":[2],"metadata":{"skip":false,"skipReason":null},"line":174,"column":5,"url":"package:flutter_test/src/widget_tester.dart","root_line":14,"root_column":3,"root_url":"file:///Users/akyuz/FlutterProjects/remindly/test/widget_test.dart"},"type":"testStart","time":1366}
+{"testID":3,"messageType":"print","message":"══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════\nThe following TestFailure was thrown running a test:\nExpected: exactly one matching candidate\n  Actual: _TextWidgetFinder:<Found 0 widgets with text \"0\": []>\n   Which: means none were found but one was expected\n\nWhen the exception was thrown, this was the stack:\n#4      main.<anonymous closure> (file:///Users/akyuz/FlutterProjects/remindly/test/widget_test.dart:19:5)\n#5      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)\n<asynchronous suspension>\n#6      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1059:5)\n<asynchronous suspension>\n<asynchronous suspension>\n(elided one frame from package:stack_trace)\n\nThis was caught by the test expectation on the following line:\n  file:///Users/akyuz/FlutterProjects/remindly/test/widget_test.dart line 19\nThe test description was:\n  Counter increments smoke test\n════════════════════════════════════════════════════════════════════════════════════════════════════","type":"print","time":1518}
+{"testID":3,"error":"Test failed. See exception logs above.\nThe test description was: Counter increments smoke test","stackTrace":"","isFailure":false,"type":"error","time":1519}
+{"testID":3,"result":"error","skipped":false,"hidden":false,"type":"testDone","time":1521}
+{"success":false,"type":"done","time":1529}

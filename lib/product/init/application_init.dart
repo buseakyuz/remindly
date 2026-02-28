@@ -22,8 +22,8 @@ class ApplicationInit {
   Future<void> firstlyInit() async {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp(
-        name: 'remindly-biyee',
-        options: DefaultFirebaseOptions.currentPlatform);
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
     await FirebaseAppCheck.instance.activate(
       providerAndroid: AndroidDebugProvider(),
