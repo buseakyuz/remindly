@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:remindly/core/constants/layout_constants.dart';
 import 'package:go_router/go_router.dart';
+import 'package:remindly/core/extension/context_extension.dart';
+import 'package:remindly/product/lang/locale_keys.g.dart';
 import 'package:remindly/product/navigation/route_enums.dart';
 
 class OnboardView extends StatefulWidget {
@@ -14,19 +17,20 @@ class _OnboardViewState extends State<OnboardView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        _onboardingIcon(),
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(LayoutConstants.largeSize),
+      body: Column(
+        children: [
+          _buildOnboardingIcon(),
+          Card(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(LayoutConstants.largeSize),
+              ),
             ),
-          ),
-          margin: EdgeInsets.zero,
-          color: Colors.black,
-          child: SizedBox(
-            width: double.infinity,
-            child: SafeArea(
+            margin: EdgeInsets.zero,
+            color: context.colorScheme.primary,
+            child: SizedBox(
+              width: double.infinity,
+              child: SafeArea(
                 top: false,
                 child: Padding(
                   padding: LayoutConstants.highAllPadding,
@@ -34,20 +38,22 @@ class _OnboardViewState extends State<OnboardView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       LayoutConstants.highEmptyHeight,
-                      _welcomeText(),
+                      _buildWelcomeText(context),
                       LayoutConstants.largeEmptyHeight,
-                      _customRectangleButton(context),
+                      _buildCustomRectangleButton(context),
                       LayoutConstants.highEmptyHeight,
                     ],
                   ),
-                )),
-          ),
-        )
-      ]),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
-  Expanded _onboardingIcon() {
+  Expanded _buildOnboardingIcon() {
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -58,24 +64,30 @@ class _OnboardViewState extends State<OnboardView> {
     );
   }
 
-  Column _welcomeText() {
+  Column _buildWelcomeText(BuildContext context) {
     return Column(
       children: [
         Text(
-          "Geleceğe Not Bırak ",
-          style: TextStyle(
-              color: Colors.white, fontSize: 44.0, fontWeight: FontWeight.bold),
+          LocaleKeys.login_welcome_title.tr(),
+          style: context.textTheme.headlineLarge?.copyWith(
+            color: context.colorScheme.surface,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
         ),
         LayoutConstants.centralEmptyHeight,
         Text(
-          "Notunu oluştur, hatırlatalım.",
-          style: TextStyle(color: Colors.white, fontSize: 24.0),
+          LocaleKeys.login_welcome_subtitle.tr(),
+          style: context.textTheme.titleMedium?.copyWith(
+            color: context.colorScheme.surface,
+          ),
+          textAlign: TextAlign.center,
         ),
       ],
     );
   }
 
-  GestureDetector _customRectangleButton(BuildContext context) {
+  GestureDetector _buildCustomRectangleButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
         context.push(AppRoutes.signUp.path);
@@ -83,24 +95,25 @@ class _OnboardViewState extends State<OnboardView> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(10.0)),
+          color: context.colorScheme.surface,
+          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
+        ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(
+            vertical: LayoutConstants.midSize,
+            horizontal: LayoutConstants.defaultSize,
+          ),
           child: Center(
-              child: Text("Hadi Başlayalım",
-                  style:
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 24.0))),
+            child: Text(
+              LocaleKeys.login_lets_start.tr(),
+              style: context.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: context.colorScheme.onSurface,
+              ),
+            ),
+          ),
         ),
       ),
-    );
-  }
-
-  Column onboardIcon() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Image.asset("assets/images/remindnote.png"),
-      ],
     );
   }
 }

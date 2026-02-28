@@ -1,8 +1,17 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:remindly/core/constants/layout_constants.dart';
+import 'package:remindly/core/extension/context_extension.dart';
+import 'package:remindly/product/lang/locale_keys.g.dart';
 import 'package:remindly/product/providers/user/user_context.dart';
+import 'package:remindly/feature/global/widgets/dialog/custom_error_dialog.dart';
+
+import 'widgets/login_text_field.dart';
+import 'widgets/login_action_button.dart';
+import 'widgets/login_header.dart';
+import '../../../product/navigation/route_enums.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -12,141 +21,166 @@ class SignInView extends StatefulWidget {
 }
 
 class _SignInViewState extends State<SignInView> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _isLoading = false;
+
+  void _setLoading(bool value) {
+    setState(() {
+      _isLoading = value;
+    });
+  }
+
+  Future<void> signIn() async {
+    if (!_formKey.currentState!.validate()) return;
+    FocusScope.of(context).unfocus();
+
+    _setLoading(true);
+
+    final result = await context.read<UserContext>().signIn(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+
+    _setLoading(false);
+
+    if (!mounted) return;
+
+    if (result.isSuccess) {
+      context.go(AppRoutes.home.path);
+    } else {
+      CustomErrorDialog(context).show(
+        title: LocaleKeys.dialog_auth_error.tr(),
+        description: result.errorMessage ?? LocaleKeys.error_unknown.tr(),
+      );
+    }
+  }
+
+  Future<void> _showForgotPasswordDialog() async {
+    final emailController = TextEditingController();
+
+    await showDialog(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          title: Text(LocaleKeys.login_forgot_password.tr(),
+              style: context.textTheme.titleLarge
+                  ?.copyWith(fontWeight: FontWeight.bold)),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(LocaleKeys.login_forgot_password_desc.tr()),
+              LayoutConstants.defaultEmptyHeight,
+              LoginTextField(
+                label: LocaleKeys.login_email.tr(),
+                iconData: Icons.alternate_email,
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => dialogContext.pop(),
+              child: Text(LocaleKeys.profile_logout_cancel.tr()),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final email = emailController.text.trim();
+                if (email.isEmpty) return;
+
+                dialogContext.pop();
+                final result = await context
+                    .read<UserContext>()
+                    .resetPassword(email: email);
+
+                if (!mounted) return;
+
+                if (result.isSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content:
+                            Text(LocaleKeys.login_password_reset_sent.tr())),
+                  );
+                } else {
+                  CustomErrorDialog(context).show(
+                    title: LocaleKeys.dialog_auth_error.tr(),
+                    description:
+                        result.errorMessage ?? LocaleKeys.error_unknown.tr(),
+                  );
+                }
+              },
+              child: Text(LocaleKeys.login_send.tr()),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: LayoutConstants.largeAllPadding,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              backButton(
-                onTap: () {
-                  context.pop();
-                },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: LayoutConstants.largeAllPadding,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  LoginHeader(
+                    title: LocaleKeys.login_sign_in.tr(),
+                    subtitle: LocaleKeys.login_sign_in_subtitle.tr(),
+                  ),
+                  LayoutConstants.maxEmptyHeight,
+                  LoginTextField(
+                    label: LocaleKeys.login_email.tr(),
+                    iconData: Icons.alternate_email,
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (val) => val != null && val.contains('@')
+                        ? null
+                        : LocaleKeys.form_enter_a_valid_mail.tr(),
+                  ),
+                  LayoutConstants.highEmptyHeight,
+                  LoginTextField(
+                    label: LocaleKeys.login_password.tr(),
+                    iconData: Icons.lock,
+                    controller: _passwordController,
+                    isPassword: true,
+                    validator: (val) => val != null && val.length >= 6
+                        ? null
+                        : LocaleKeys.form_password_must_be_long_character.tr(),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton(
+                      onPressed: _showForgotPasswordDialog,
+                      child: Text(
+                        LocaleKeys.login_forgot_password.tr(),
+                        style: TextStyle(
+                            color: context.colorScheme.primary,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  LayoutConstants.defaultEmptyHeight,
+                  LoginActionButton(
+                    label: LocaleKeys.login_sign_in.tr(),
+                    onTap: signIn,
+                    isLoading: _isLoading,
+                  ),
+                ],
               ),
-              LayoutConstants.largeEmptyHeight,
-              _pageTitle(),
-              LayoutConstants.maxEmptyHeight,
-              _customTextField(
-                  label: "E-Posta",
-                  iconData: Icons.alternate_email,
-                  controller: _emailController),
-              LayoutConstants.highEmptyHeight,
-              _customTextField(
-                  label: "Parola",
-                  iconData: Icons.lock,
-                  controller: _passwordController),
-              LayoutConstants.highEmptyHeight,
-              signInButton(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget signInButton() {
-    return GestureDetector(
-      onTap: signIn,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
-        ),
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: LayoutConstants.midSize,
-              horizontal: LayoutConstants.defaultSize),
-          child: Center(
-            child: Text(
-              "Giriş Yap",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0),
             ),
           ),
         ),
       ),
     );
-  }
-
-  Column _pageTitle() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "Giriş Yap",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 32.0,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text("Geleceğe Not Bırakmak İçin Hemen Giriş Yap.",
-              style: TextStyle(
-                  color: Colors.black.withValues(alpha: 0.5), fontSize: 18.0)),
-        ),
-      ],
-    );
-  }
-
-  Widget backButton({required Function() onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        color: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.all(LayoutConstants.lowRadius),
-          child: Icon(
-            Icons.chevron_left,
-            color: Colors.white,
-            size: 32.0,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Container _customTextField(
-      {required String label,
-      required IconData iconData,
-      required TextEditingController controller}) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.grey.withValues(alpha: 0.2),
-          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: LayoutConstants.defaultSize,
-            vertical: LayoutConstants.lowSize),
-        child: TextField(
-          controller: controller,
-          textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.zero,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            suffixIcon: Icon(iconData),
-            hintText: label,
-            hintStyle: TextStyle(),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void signIn() {
-    context.read<UserContext>().signIn(
-        email: _emailController.text, password: _passwordController.text);
   }
 }

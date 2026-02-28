@@ -6,7 +6,6 @@ import 'package:remindly/product/providers/user/user_context.dart';
 
 import 'package:go_router/go_router.dart';
 import 'package:remindly/product/navigation/route_enums.dart';
-import 'widgets/home_drawer.dart';
 import 'widgets/note_list_view.dart';
 import 'widgets/total_note_counter.dart';
 
@@ -30,7 +29,6 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _HomeAppBar(),
-      drawer: const HomeDrawer(),
       body: const Column(
         children: [
           TotalNoteCounter(),

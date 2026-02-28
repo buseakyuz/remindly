@@ -7,30 +7,26 @@ import 'app_colors.dart';
 
 class ThemeStyles {
   // Global
-  static final TextStyle fontStyle = GoogleFonts.caveat();
-  static final TextTheme fontTheme = GoogleFonts.caveatTextTheme();
+  static final TextStyle fontStyle = GoogleFonts.comingSoon();
+  static final TextTheme fontTheme = GoogleFonts.comingSoonTextTheme();
   static Color get primaryColor => HexColor(AppHexColors.primary);
   static Color get secondaryColor => HexColor(AppHexColors.secondary);
   static Color get errorColor => HexColor(AppHexColors.error);
   static Color get blackColor => HexColor(AppHexColors.black);
   // DARK THEME
 
-  static Color get darkBackground =>
-      HexColor(AppHexColors.darkThemeBackground);
+  static Color get darkBackground => HexColor(AppHexColors.darkThemeBackground);
   static Color get darkLayer => HexColor(AppHexColors.darkThemeLayer);
   static Color get darkLabel => HexColor(AppHexColors.darkThemeLabel);
-  static Color get darkTitleText =>
-      HexColor(AppHexColors.darkThemeTitleText);
+  static Color get darkTitleText => HexColor(AppHexColors.darkThemeTitleText);
   static Color get darkBodyText => HexColor(AppHexColors.darkThemeBodyText);
 
   static Color get lightBackground =>
       HexColor(AppHexColors.lightThemeBackground);
   static Color get lightLayer => HexColor(AppHexColors.lightThemeLayer);
   static Color get lightLabel => HexColor(AppHexColors.lightThemeLabel);
-  static Color get lightTitleText =>
-      HexColor(AppHexColors.lightThemeTitleText);
-  static Color get lightBodyText =>
-      HexColor(AppHexColors.lightThemeBodyText);
+  static Color get lightTitleText => HexColor(AppHexColors.lightThemeTitleText);
+  static Color get lightBodyText => HexColor(AppHexColors.lightThemeBodyText);
 
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: darkBackground,
@@ -40,10 +36,12 @@ class ThemeStyles {
     brightness: Brightness.dark,
     focusColor: primaryColor,
     listTileTheme: ListTileThemeData(textColor: darkBodyText),
-    tabBarTheme: TabBarThemeData(labelColor: darkTitleText, indicatorColor: primaryColor),
+    tabBarTheme: TabBarThemeData(
+        labelColor: darkTitleText, indicatorColor: primaryColor),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
-        borderSide: BorderSide(color: darkBodyText.withAlpha((0.4 * 255).toInt()), width: 2),
+        borderSide: BorderSide(
+            color: darkBodyText.withAlpha((0.4 * 255).toInt()), width: 2),
       ),
     ),
     textSelectionTheme: TextSelectionThemeData(cursorColor: primaryColor),
@@ -78,7 +76,8 @@ class ThemeStyles {
     colorScheme: _colorSchemeLight,
     focusColor: primaryColor,
     listTileTheme: ListTileThemeData(textColor: lightBodyText),
-    tabBarTheme: TabBarThemeData(labelColor: lightTitleText, indicatorColor: primaryColor),
+    tabBarTheme: TabBarThemeData(
+        labelColor: lightTitleText, indicatorColor: primaryColor),
     progressIndicatorTheme: ProgressIndicatorThemeData(
         color: primaryColor,
         linearTrackColor: primaryColor.withAlpha((0.5 * 255).toInt()),
@@ -89,8 +88,8 @@ class ThemeStyles {
     brightness: Brightness.light,
     inputDecorationTheme: InputDecorationTheme(
       enabledBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: lightBodyText.withAlpha((0.4 * 255).toInt()), width: 2),
+          borderSide: BorderSide(
+              color: lightBodyText.withAlpha((0.4 * 255).toInt()), width: 2),
           borderRadius: BorderRadius.circular(10)),
       border: OutlineInputBorder(
         borderSide: const BorderSide(width: 2),
@@ -116,7 +115,7 @@ class ThemeStyles {
         color: lightTitleText,
       ),
     ),
-    textTheme: fontTheme.apply(bodyColor: lightTitleText).copyWith(),
+    textTheme: fontTheme.apply(bodyColor: lightTitleText),
     cardColor: lightLayer,
     dialogTheme: DialogThemeData(backgroundColor: lightLayer),
   );

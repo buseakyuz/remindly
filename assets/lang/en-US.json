@@ -51,6 +51,31 @@
         "terms_sub": "Review documents.",
         "change_language": "Change Language",
         "change_language_sub": "Change app language.",
-        "logout": "Log Out"
+        "logout": "Log Out",
+        "logout_desc": "Are you sure you want to log out of your account?",
+        "logout_cancel": "Cancel",
+        "logout_confirm": "Log Out"
+    },
+    "login": {
+        "welcome_title": "Leave a Note",
+        "welcome_subtitle": "Create your note, we will remind you.",
+        "lets_start": "Let's Get Started",
+        "sign_in": "Sign In",
+        "sign_in_subtitle": "Sign in now to leave a note for the future.",
+        "email": "Email",
+        "password": "Password",
+        "forgot_password": "Forgot Password?",
+        "forgot_password_desc": "Enter your email address to reset your password.",
+        "send": "Send",
+        "password_reset_sent": "Password reset link sent.",
+        "sign_up": "Sign Up",
+        "sign_up_title": "Create Account",
+        "sign_up_subtitle": "Sign up now to leave a note for the future.",
+        "name_surname": "Name Surname",
+        "already_have_account": "Already have an account?",
+        "privacy_policy_1": "By continuing, you confirm that you accept our",
+        "privacy_policy_2": " terms and conditions",
+        "privacy_policy_3": ".",
+        "loading": "Loading..."
     }
 }

@@ -2,14 +2,13 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
   static const app_name = 'app_name';
   static const go_on = 'go_on';
   static const okey = 'okey';
   static const dialog_auth_error = 'dialog.auth_error';
   static const dialog = 'dialog';
-  static const error_accountExistsDifferentCredential =
-      'error.accountExistsDifferentCredential';
+  static const error_accountExistsDifferentCredential = 'error.accountExistsDifferentCredential';
   static const error_unknown = 'error.unknown';
   static const error_wrongPassword = 'error.wrongPassword';
   static const error_weakPassword = 'error.weakPassword';
@@ -20,8 +19,7 @@ abstract class LocaleKeys {
   static const error_emailNotCatch = 'error.emailNotCatch';
   static const error = 'error';
   static const form_enter_a_valid_mail = 'form.enter_a_valid_mail';
-  static const form_password_must_be_long_character =
-      'form.password_must_be_long_character';
+  static const form_password_must_be_long_character = 'form.password_must_be_long_character';
   static const form_password_must_match = 'form.password_must_match';
   static const form = 'form';
   static const home_notes_title = 'home.notes_title';
@@ -52,5 +50,30 @@ abstract class LocaleKeys {
   static const profile_change_language = 'profile.change_language';
   static const profile_change_language_sub = 'profile.change_language_sub';
   static const profile_logout = 'profile.logout';
+  static const profile_logout_desc = 'profile.logout_desc';
+  static const profile_logout_cancel = 'profile.logout_cancel';
+  static const profile_logout_confirm = 'profile.logout_confirm';
   static const profile = 'profile';
+  static const login_welcome_title = 'login.welcome_title';
+  static const login_welcome_subtitle = 'login.welcome_subtitle';
+  static const login_lets_start = 'login.lets_start';
+  static const login_sign_in = 'login.sign_in';
+  static const login_sign_in_subtitle = 'login.sign_in_subtitle';
+  static const login_email = 'login.email';
+  static const login_password = 'login.password';
+  static const login_forgot_password = 'login.forgot_password';
+  static const login_forgot_password_desc = 'login.forgot_password_desc';
+  static const login_send = 'login.send';
+  static const login_password_reset_sent = 'login.password_reset_sent';
+  static const login_sign_up = 'login.sign_up';
+  static const login_sign_up_title = 'login.sign_up_title';
+  static const login_sign_up_subtitle = 'login.sign_up_subtitle';
+  static const login_name_surname = 'login.name_surname';
+  static const login_already_have_account = 'login.already_have_account';
+  static const login_privacy_policy_1 = 'login.privacy_policy_1';
+  static const login_privacy_policy_2 = 'login.privacy_policy_2';
+  static const login_privacy_policy_3 = 'login.privacy_policy_3';
+  static const login_loading = 'login.loading';
+  static const login = 'login';
+
 }

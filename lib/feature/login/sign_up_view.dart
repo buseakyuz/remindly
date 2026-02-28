@@ -1,11 +1,19 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import 'package:remindly/core/constants/layout_constants.dart';
+import 'package:remindly/core/extension/context_extension.dart';
 import 'package:remindly/product/navigation/route_enums.dart';
 import 'package:remindly/product/providers/user/user_context.dart';
+import 'package:remindly/product/lang/locale_keys.g.dart';
+import 'package:remindly/feature/global/widgets/dialog/custom_error_dialog.dart';
 
-import '../../core/constants/layout_constants.dart';
+import 'widgets/login_text_field.dart';
+import 'widgets/login_action_button.dart';
+import 'widgets/login_header.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -15,79 +23,133 @@ class SignUpView extends StatefulWidget {
 }
 
 class _SignUpViewState extends State<SignUpView> {
-  TextEditingController realNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController realNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  bool _isLoading = false;
+
+  void _setLoading(bool value) {
+    setState(() {
+      _isLoading = value;
+    });
+  }
+
+  Future<void> _signUp() async {
+    if (!_formKey.currentState!.validate()) return;
+    FocusScope.of(context).unfocus();
+
+    _setLoading(true);
+
+    final result = await context.read<UserContext>().signUp(
+          realName: realNameController.text.trim(),
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+        );
+
+    _setLoading(false);
+
+    if (!mounted) return;
+
+    if (result.isSuccess) {
+      context.go(AppRoutes.home.path);
+    } else {
+      CustomErrorDialog(context).show(
+        title: LocaleKeys.dialog_auth_error.tr(),
+        description: result.errorMessage ?? LocaleKeys.error_unknown.tr(),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: LayoutConstants.largeAllPadding,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              backButton(
-                onTap: () {
-                  context.pop();
-                },
-              ),
-              LayoutConstants.ultraEmptyHeight,
-              _pageTitle(),
-              LayoutConstants.maxEmptyHeight,
-              _customTextField(
-                  label: "İsim Soyisim",
-                  iconData: Icons.person,
-                  controller: realNameController),
-              LayoutConstants.highEmptyHeight,
-              _customTextField(
-                  label: "E-Posta",
-                  iconData: Icons.alternate_email,
-                  controller: emailController),
-              LayoutConstants.highEmptyHeight,
-              _customTextField(
-                  label: "Parola",
-                  iconData: Icons.lock,
-                  controller: passwordController),
-              LayoutConstants.highEmptyHeight,
-              signUpButton(),
-              LayoutConstants.highEmptyHeight,
-              _privacyPolicy(),
-              LayoutConstants.highEmptyHeight,
-              Column(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: LayoutConstants.largeAllPadding,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  LoginHeader(
+                    title: LocaleKeys.login_sign_up_title.tr(),
+                    subtitle: LocaleKeys.login_sign_up_subtitle.tr(),
+                  ),
+                  LayoutConstants.ultraEmptyHeight,
+                  LoginTextField(
+                    label: LocaleKeys.login_name_surname.tr(),
+                    iconData: Icons.person,
+                    controller: realNameController,
+                    keyboardType: TextInputType.name,
+                    textCapitalization: TextCapitalization.words,
+                    validator: (val) => val != null && val.isNotEmpty
+                        ? null
+                        : "Lütfen isminizi giriniz.",
+                  ),
+                  LayoutConstants.highEmptyHeight,
+                  LoginTextField(
+                    label: LocaleKeys.login_email.tr(),
+                    iconData: Icons.alternate_email,
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (val) => val != null && val.contains('@')
+                        ? null
+                        : LocaleKeys.form_enter_a_valid_mail.tr(),
+                  ),
+                  LayoutConstants.highEmptyHeight,
+                  LoginTextField(
+                    label: LocaleKeys.login_password.tr(),
+                    iconData: Icons.lock,
+                    controller: passwordController,
+                    isPassword: true,
+                    validator: (val) => val != null && val.length >= 6
+                        ? null
+                        : LocaleKeys.form_password_must_be_long_character.tr(),
+                  ),
+                  LayoutConstants.ultraEmptyHeight,
+                  LoginActionButton(
+                    label: LocaleKeys.login_sign_up.tr(),
+                    onTap: _signUp,
+                    isLoading: _isLoading,
+                  ),
+                  LayoutConstants.highEmptyHeight,
+                  Center(child: _privacyPolicy()),
+                  LayoutConstants.highEmptyHeight,
                   Center(
                     child: RichText(
                       text: TextSpan(children: [
                         TextSpan(
-                            text: "Zaten bir hesabın var mı?",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                    color: Colors.black.withValues(alpha: 0.5),
-                                    fontSize: 22.0)),
+                          text:
+                              "${LocaleKeys.login_already_have_account.tr()} ",
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: context.colorScheme.onSurface
+                                .withValues(alpha: 0.5),
+                            fontSize: 18.0,
+                          ),
+                        ),
                         TextSpan(
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               context.push(AppRoutes.signIn.path);
                             },
-                          text: " Giriş Yap.",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                  color: Colors.black,
-                                  fontSize: 22.0,
-                                  fontWeight: FontWeight.bold),
+                          text: LocaleKeys.login_sign_in.tr(),
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: context.colorScheme.primary,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ]),
                     ),
                   ),
                 ],
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),
@@ -96,128 +158,31 @@ class _SignUpViewState extends State<SignUpView> {
 
   RichText _privacyPolicy() {
     return RichText(
+      textAlign: TextAlign.center,
       text: TextSpan(
-          children: [
-            TextSpan(
-                text: " hüküm ve koşullarımızı",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(color: Colors.black, fontSize: 20.0)),
-            TextSpan(
-                text: " kabul ettiğinizi onaylarsınız.",
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: 20.0,
-                      color: Colors.black.withValues(alpha: 0.5),
-                    )),
-          ],
-          text: "Devam ederek",
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: 20.0,
-                color: Colors.black.withValues(alpha: 0.5),
-              )),
-    );
-  }
-
-  Widget signUpButton() {
-    return GestureDetector(
-      onTap: _singUp,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
-        ),
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: LayoutConstants.midSize,
-              horizontal: LayoutConstants.midSize),
-          child: Center(
-            child: Text(
-              "Kayıt Ol",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22.0),
+        children: [
+          TextSpan(
+            text: LocaleKeys.login_privacy_policy_1.tr(),
+            style: context.textTheme.bodyMedium?.copyWith(
+              fontSize: 16.0,
             ),
           ),
-        ),
+          TextSpan(
+            text: LocaleKeys.login_privacy_policy_2.tr(),
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: context.colorScheme.primary,
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+            ),
+          ),
+          TextSpan(
+            text: LocaleKeys.login_privacy_policy_3.tr(),
+            style: context.textTheme.bodyMedium?.copyWith(
+              fontSize: 16.0,
+            ),
+          ),
+        ],
       ),
     );
-  }
-
-  Column _pageTitle() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "Hesap Oluştur",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 32.0,
-          ),
-        ),
-        Padding(
-          padding: LayoutConstants.defaultVerticalPadding,
-          child: Text("Geleceğe Not Bırakmak İçin Hemen Kayıt Ol.",
-              style: TextStyle(
-                  color: Colors.black.withValues(alpha: 0.5), fontSize: 18.0)),
-        ),
-      ],
-    );
-  }
-
-  Widget backButton({required Function() onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        color: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.all(LayoutConstants.lowSize),
-          child: Icon(
-            Icons.chevron_left,
-            color: Colors.white,
-            size: 32.0,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Container _customTextField(
-      {required String label,
-      required IconData iconData,
-      required TextEditingController controller}) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.grey.withValues(alpha: 0.2),
-          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius)),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: LayoutConstants.defaultSize,
-            vertical: LayoutConstants.lowSize),
-        child: TextField(
-          controller: controller,
-          textAlignVertical: TextAlignVertical.center,
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.zero,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            suffixIcon: Icon(iconData),
-            hintText: label,
-            hintStyle: TextStyle(),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _singUp() {
-    context.read<UserContext>().signUp(
-        realName: realNameController.text,
-        email: emailController.text,
-        password: passwordController.text);
   }
 }

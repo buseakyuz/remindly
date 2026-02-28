@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:remindly/feature/home/create_note_view.dart';
 import 'package:remindly/feature/home/home_view.dart';
 import 'package:remindly/feature/login/onboard_view.dart';
@@ -14,7 +15,9 @@ final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 class AppRouter {
   static final GoRouter router = GoRouter(
     navigatorKey: rootNavigatorKey,
-    initialLocation: AppRoutes.home.path,
+    initialLocation: FirebaseAuth.instance.currentUser != null
+        ? AppRoutes.home.path
+        : AppRoutes.onboard.path,
     routes: [
       GoRoute(
         path: AppRoutes.home.path,

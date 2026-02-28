@@ -51,6 +51,31 @@
         "terms_sub": "Belgeleri incele.",
         "change_language": "Dili Değiştir",
         "change_language_sub": "Uygulama dilini değiştir.",
-        "logout": "Çıkış Yap"
+        "logout": "Çıkış Yap",
+        "logout_desc": "Hesabınızdan çıkış yapmak istediğinize emin misiniz?",
+        "logout_cancel": "İptal",
+        "logout_confirm": "Çıkış Yap"
+    },
+    "login": {
+        "welcome_title": "Geleceğe Not Bırak",
+        "welcome_subtitle": "Notunu oluştur, hatırlatalım.",
+        "lets_start": "Hadi Başlayalım",
+        "sign_in": "Giriş Yap",
+        "sign_in_subtitle": "Geleceğe Not Bırakmak İçin Hemen Giriş Yap.",
+        "email": "E-Posta",
+        "password": "Parola",
+        "forgot_password": "Şifremi Unuttum",
+        "forgot_password_desc": "Şifreni sıfırlamak için e-posta adresini gir.",
+        "send": "Gönder",
+        "password_reset_sent": "Şifre sıfırlama bağlantısı gönderildi.",
+        "sign_up": "Kayıt Ol",
+        "sign_up_title": "Hesap Oluştur",
+        "sign_up_subtitle": "Geleceğe Not Bırakmak İçin Hemen Kayıt Ol.",
+        "name_surname": "İsim Soyisim",
+        "already_have_account": "Zaten bir hesabın var mı?",
+        "privacy_policy_1": "Devam ederek",
+        "privacy_policy_2": " hüküm ve koşullarımızı",
+        "privacy_policy_3": " kabul ettiğinizi onaylarsınız.",
+        "loading": "Yükleniyor..."
     }
 }
