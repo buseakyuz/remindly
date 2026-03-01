@@ -40,14 +40,14 @@ class _OnboardViewState extends State<OnboardView> {
                       LayoutConstants.highEmptyHeight,
                       _buildWelcomeText(context),
                       LayoutConstants.largeEmptyHeight,
-                      _buildCustomRectangleButton(context),
+                      _buildAuthButtons(context),
                       LayoutConstants.highEmptyHeight,
                     ],
                   ),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -57,9 +57,7 @@ class _OnboardViewState extends State<OnboardView> {
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Image.asset("assets/images/remindnote.png"),
-        ],
+        children: [Image.asset("assets/images/remindnote.png")],
       ),
     );
   }
@@ -87,33 +85,59 @@ class _OnboardViewState extends State<OnboardView> {
     );
   }
 
-  GestureDetector _buildCustomRectangleButton(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        context.push(AppRoutes.signUp.path);
-      },
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: context.colorScheme.surface,
-          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: LayoutConstants.midSize,
-            horizontal: LayoutConstants.defaultSize,
-          ),
-          child: Center(
+  Widget _buildAuthButtons(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: OutlinedButton(
+            onPressed: () => context.push(AppRoutes.signIn.path),
+            style: OutlinedButton.styleFrom(
+              foregroundColor: context.colorScheme.surface,
+              side: BorderSide(color: context.colorScheme.surface, width: 2),
+              padding: const EdgeInsets.symmetric(
+                vertical: LayoutConstants.midSize,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  LayoutConstants.defaultRadius,
+                ),
+              ),
+            ),
             child: Text(
-              LocaleKeys.login_lets_start.tr(),
+              LocaleKeys.login_sign_in.tr(),
               style: context.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: context.colorScheme.onSurface,
+                color: context.colorScheme.surface,
               ),
             ),
           ),
         ),
-      ),
+        const SizedBox(width: LayoutConstants.defaultSize),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () => context.push(AppRoutes.signUp.path),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: context.colorScheme.surface,
+              foregroundColor: context.colorScheme.primary,
+              padding: const EdgeInsets.symmetric(
+                vertical: LayoutConstants.midSize,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  LayoutConstants.defaultRadius,
+                ),
+              ),
+            ),
+            child: Text(
+              LocaleKeys.login_sign_up.tr(),
+              style: context.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: context.colorScheme.primary,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

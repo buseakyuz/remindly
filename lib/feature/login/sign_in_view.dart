@@ -40,9 +40,9 @@ class _SignInViewState extends State<SignInView> {
     _setLoading(true);
 
     final result = await context.read<UserContext>().signIn(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim(),
-        );
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
 
     _setLoading(false);
 
@@ -60,61 +60,113 @@ class _SignInViewState extends State<SignInView> {
 
   Future<void> _showForgotPasswordDialog() async {
     final emailController = TextEditingController();
+    bool emailSent = false;
 
     await showDialog(
       context: context,
+      barrierDismissible: true,
       builder: (dialogContext) {
-        return AlertDialog(
-          title: Text(LocaleKeys.login_forgot_password.tr(),
-              style: context.textTheme.titleLarge
-                  ?.copyWith(fontWeight: FontWeight.bold)),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(LocaleKeys.login_forgot_password_desc.tr()),
-              LayoutConstants.defaultEmptyHeight,
-              LoginTextField(
-                label: LocaleKeys.login_email.tr(),
-                iconData: Icons.alternate_email,
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
+        return StatefulBuilder(
+          builder: (ctx, setDialogState) {
+            if (emailSent) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                    LayoutConstants.defaultRadius,
+                  ),
+                ),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    LayoutConstants.defaultEmptyHeight,
+                    Icon(
+                      Icons.mark_email_read_outlined,
+                      size: 64,
+                      color: context.colorScheme.primary,
+                    ),
+                    LayoutConstants.defaultEmptyHeight,
+                    Text(
+                      LocaleKeys.login_password_reset_sent.tr(),
+                      textAlign: TextAlign.center,
+                      style: context.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    LayoutConstants.defaultEmptyHeight,
+                  ],
+                ),
+              );
+            }
+
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                  LayoutConstants.defaultRadius,
+                ),
               ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => dialogContext.pop(),
-              child: Text(LocaleKeys.profile_logout_cancel.tr()),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                final email = emailController.text.trim();
-                if (email.isEmpty) return;
+              title: Text(
+                LocaleKeys.login_forgot_password.tr(),
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(LocaleKeys.login_forgot_password_desc.tr()),
+                  LayoutConstants.defaultEmptyHeight,
+                  LoginTextField(
+                    label: LocaleKeys.login_email.tr(),
+                    iconData: Icons.alternate_email,
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => dialogContext.pop(),
+                  child: Text(LocaleKeys.profile_logout_cancel.tr()),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    final email = emailController.text.trim();
+                    if (email.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            LocaleKeys.form_enter_a_valid_mail.tr(),
+                          ),
+                        ),
+                      );
+                      return;
+                    }
 
-                dialogContext.pop();
-                final result = await context
-                    .read<UserContext>()
-                    .resetPassword(email: email);
+                    final result = await context
+                        .read<UserContext>()
+                        .resetPassword(email: email);
 
-                if (!mounted) return;
+                    if (!mounted) return;
 
-                if (result.isSuccess) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                        content:
-                            Text(LocaleKeys.login_password_reset_sent.tr())),
-                  );
-                } else {
-                  CustomErrorDialog(context).show(
-                    title: LocaleKeys.dialog_auth_error.tr(),
-                    description:
-                        result.errorMessage ?? LocaleKeys.error_unknown.tr(),
-                  );
-                }
-              },
-              child: Text(LocaleKeys.login_send.tr()),
-            ),
-          ],
+                    if (result.isSuccess) {
+                      setDialogState(() => emailSent = true);
+                      await Future.delayed(const Duration(seconds: 2));
+                      if (dialogContext.mounted) dialogContext.pop();
+                    } else {
+                      if (dialogContext.mounted) dialogContext.pop();
+                      CustomErrorDialog(context).show(
+                        title: LocaleKeys.dialog_auth_error.tr(),
+                        description:
+                            result.errorMessage ??
+                            LocaleKeys.error_unknown.tr(),
+                      );
+                    }
+                  },
+                  child: Text(LocaleKeys.login_send.tr()),
+                ),
+              ],
+            );
+          },
         );
       },
     );
@@ -164,8 +216,9 @@ class _SignInViewState extends State<SignInView> {
                       child: Text(
                         LocaleKeys.login_forgot_password.tr(),
                         style: TextStyle(
-                            color: context.colorScheme.primary,
-                            fontWeight: FontWeight.bold),
+                          color: context.colorScheme.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
