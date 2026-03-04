@@ -8,8 +8,3 @@ extension ContextExtension on BuildContext {
   double get width => MediaQuery.of(this).size.width;
   double get height => MediaQuery.of(this).size.height;
 }
-
-extension PaddingExtension on BuildContext {
-  EdgeInsets get lowPaddingAll => const EdgeInsets.all(8);
-  EdgeInsets get defaultPaddingAll => const EdgeInsets.all(16);
-}

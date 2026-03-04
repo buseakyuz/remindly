@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../core/constants/layout_constants.dart';
 import '../../core/helpers/hex_color.dart';
 import 'app_colors.dart';
 
@@ -28,6 +29,13 @@ class ThemeStyles {
   static Color get lightTitleText => HexColor(AppHexColors.lightThemeTitleText);
   static Color get lightBodyText => HexColor(AppHexColors.lightThemeBodyText);
 
+  static Color get darkBodyTextTransparent =>
+      darkBodyText.withAlpha(102); // 0.4
+  static Color get lightBodyTextTransparent =>
+      lightBodyText.withAlpha(102); // 0.4
+  static Color get primaryColorHalfTransparent =>
+      primaryColor.withAlpha(128); // 0.5
+
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
     scaffoldBackgroundColor: darkBackground,
     colorScheme: _colorSchemeDark,
@@ -37,31 +45,38 @@ class ThemeStyles {
     focusColor: primaryColor,
     listTileTheme: ListTileThemeData(textColor: darkBodyText),
     tabBarTheme: TabBarThemeData(
-        labelColor: darkTitleText, indicatorColor: primaryColor),
+      labelColor: darkTitleText,
+      indicatorColor: primaryColor,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderSide: BorderSide(
-            color: darkBodyText.withAlpha((0.4 * 255).toInt()), width: 2),
+          color: darkBodyTextTransparent,
+          width: LayoutConstants.tinySize,
+        ),
       ),
     ),
     textSelectionTheme: TextSelectionThemeData(cursorColor: primaryColor),
     appBarTheme: AppBarTheme(
-        elevation: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarIconBrightness: Brightness.dark,
-            statusBarBrightness: Brightness.dark,
-            systemNavigationBarIconBrightness: Brightness.dark),
-        titleTextStyle: fontStyle.copyWith(
-            color: darkTitleText, fontWeight: FontWeight.bold, fontSize: 18),
-        iconTheme: IconThemeData(color: darkTitleText),
-        actionsIconTheme: IconThemeData(color: darkTitleText),
-        backgroundColor: darkBackground,
-        foregroundColor: darkTitleText,
-        centerTitle: false),
-    primaryTextTheme: fontTheme.copyWith(
-      titleLarge: fontStyle.copyWith(
-        color: darkTitleText,
+      elevation: 0,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
       ),
+      titleTextStyle: fontStyle.copyWith(
+        color: darkTitleText,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      ),
+      iconTheme: IconThemeData(color: darkTitleText),
+      actionsIconTheme: IconThemeData(color: darkTitleText),
+      backgroundColor: darkBackground,
+      foregroundColor: darkTitleText,
+      centerTitle: false,
+    ),
+    primaryTextTheme: fontTheme.copyWith(
+      titleLarge: fontStyle.copyWith(color: darkTitleText),
     ),
     textTheme: fontTheme.apply(bodyColor: darkTitleText),
     cardColor: darkLayer,
@@ -77,43 +92,51 @@ class ThemeStyles {
     focusColor: primaryColor,
     listTileTheme: ListTileThemeData(textColor: lightBodyText),
     tabBarTheme: TabBarThemeData(
-        labelColor: lightTitleText, indicatorColor: primaryColor),
+      labelColor: lightTitleText,
+      indicatorColor: primaryColor,
+    ),
     progressIndicatorTheme: ProgressIndicatorThemeData(
-        color: primaryColor,
-        linearTrackColor: primaryColor.withAlpha((0.5 * 255).toInt()),
-        circularTrackColor: primaryColor.withAlpha((0.5 * 255).toInt()),
-        refreshBackgroundColor: primaryColor),
+      color: primaryColor,
+      linearTrackColor: primaryColorHalfTransparent,
+      circularTrackColor: primaryColorHalfTransparent,
+      refreshBackgroundColor: primaryColor,
+    ),
     textSelectionTheme: TextSelectionThemeData(cursorColor: primaryColor),
     shadowColor: lightLabel,
     brightness: Brightness.light,
     inputDecorationTheme: InputDecorationTheme(
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-              color: lightBodyText.withAlpha((0.4 * 255).toInt()), width: 2),
-          borderRadius: BorderRadius.circular(10)),
+        borderSide: BorderSide(
+          color: lightBodyTextTransparent,
+          width: LayoutConstants.tinySize,
+        ),
+        borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
+      ),
       border: OutlineInputBorder(
-        borderSide: const BorderSide(width: 2),
-        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(width: LayoutConstants.tinySize),
+        borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
       ),
     ),
     appBarTheme: AppBarTheme(
-        elevation: 0,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.light,
-          systemNavigationBarIconBrightness: Brightness.light,
-        ),
-        titleTextStyle: fontStyle.copyWith(
-            color: lightTitleText, fontWeight: FontWeight.bold, fontSize: 16),
-        iconTheme: IconThemeData(color: lightTitleText),
-        actionsIconTheme: IconThemeData(color: lightTitleText),
-        backgroundColor: lightBackground,
-        foregroundColor: lightTitleText,
-        centerTitle: false),
-    primaryTextTheme: fontTheme.copyWith(
-      titleLarge: fontStyle.copyWith(
-        color: lightTitleText,
+      elevation: 0,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light,
+        systemNavigationBarIconBrightness: Brightness.light,
       ),
+      titleTextStyle: fontStyle.copyWith(
+        color: lightTitleText,
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      ),
+      iconTheme: IconThemeData(color: lightTitleText),
+      actionsIconTheme: IconThemeData(color: lightTitleText),
+      backgroundColor: lightBackground,
+      foregroundColor: lightTitleText,
+      centerTitle: false,
+    ),
+    primaryTextTheme: fontTheme.copyWith(
+      titleLarge: fontStyle.copyWith(color: lightTitleText),
     ),
     textTheme: fontTheme.apply(bodyColor: lightTitleText),
     cardColor: lightLayer,
@@ -121,24 +144,26 @@ class ThemeStyles {
   );
 
   static ColorScheme get _colorSchemeLight => ColorScheme(
-      brightness: Brightness.light,
-      primary: primaryColor,
-      onPrimary: Colors.white,
-      secondary: secondaryColor,
-      onSecondary: Colors.white,
-      error: errorColor,
-      onError: Colors.white,
-      surface: lightBackground,
-      onSurface: lightTitleText);
+    brightness: Brightness.light,
+    primary: primaryColor,
+    onPrimary: Colors.white,
+    secondary: secondaryColor,
+    onSecondary: Colors.white,
+    error: errorColor,
+    onError: Colors.white,
+    surface: lightBackground,
+    onSurface: lightTitleText,
+  );
 
   static ColorScheme get _colorSchemeDark => ColorScheme(
-      brightness: Brightness.dark,
-      primary: primaryColor,
-      onPrimary: Colors.white,
-      secondary: secondaryColor,
-      onSecondary: Colors.white,
-      error: errorColor,
-      onError: Colors.white,
-      surface: darkBackground,
-      onSurface: darkTitleText);
+    brightness: Brightness.dark,
+    primary: primaryColor,
+    onPrimary: Colors.white,
+    secondary: secondaryColor,
+    onSecondary: Colors.white,
+    error: errorColor,
+    onError: Colors.white,
+    surface: darkBackground,
+    onSurface: darkTitleText,
+  );
 }
