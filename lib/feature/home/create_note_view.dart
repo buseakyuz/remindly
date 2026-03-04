@@ -21,6 +21,7 @@ class CreateNoteView extends StatefulWidget {
 
 class _CreateNoteViewState extends State<CreateNoteView> {
   DateTime? _date;
+  String? _notificationType;
   final TextEditingController noteController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
@@ -46,11 +47,18 @@ class _CreateNoteViewState extends State<CreateNoteView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(context),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-            vertical: LayoutConstants.defaultSize,
-            horizontal: LayoutConstants.midSize),
-        child: _createNoteColumn(context),
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: LayoutConstants.midSize,
+              ),
+              child: _createNoteColumn(context),
+            ),
+          ),
+          _buildBottomActionBar(context),
+        ],
       ),
     );
   }
@@ -60,15 +68,17 @@ class _CreateNoteViewState extends State<CreateNoteView> {
       children: [
         TextField(
           controller: titleController,
-          style: context.textTheme.headlineSmall
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: context.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
           decoration: InputDecoration(
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
             hintText: LocaleKeys.home_title_hint.tr(),
-            hintStyle:
-                context.textTheme.headlineSmall?.copyWith(color: Colors.grey),
+            hintStyle: context.textTheme.headlineSmall?.copyWith(
+              color: Colors.grey,
+            ),
           ),
         ),
         Expanded(
@@ -85,50 +95,154 @@ class _CreateNoteViewState extends State<CreateNoteView> {
             ),
           ),
         ),
-        SafeArea(
-          top: false,
-          child: Padding(
-            padding: LayoutConstants.midVerticalPadding,
-            child: _selectDateButton(context),
-          ),
-        ),
       ],
     );
   }
 
-  GestureDetector _selectDateButton(BuildContext context) {
-    return GestureDetector(
-      onTap: _selectDate,
-      child: Container(
-        width: double.infinity,
-        height: 56.0,
-        decoration: BoxDecoration(
-          color: context.colorScheme.primary,
-          borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
-        ),
-        child: Center(
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: LayoutConstants.midSize),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(Icons.event, color: context.colorScheme.onPrimary),
-                Text(
-                  _date != null
-                      ? formatDate()
-                      : LocaleKeys.home_select_date.tr(),
-                  style: context.textTheme.titleMedium?.copyWith(
-                    color: context.colorScheme.onPrimary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(width: 24)
-              ],
-            ),
+  Widget _buildBottomActionBar(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: context.colorScheme.surface,
+        boxShadow: [
+          BoxShadow(
+            color: context.colorScheme.onSurface.withAlpha(10),
+            blurRadius: 10,
+            offset: const Offset(0, -5),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: LayoutConstants.defaultSize,
+            vertical: LayoutConstants.lowSize,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildToolbarButton(
+                context: context,
+                icon: Icons.calendar_today,
+                label: _date != null ? formatDate() : "Tarih (İsteğe Bağlı)",
+                isActive: _date != null,
+                onTap: _selectDate,
+                onLongPress: _date != null ? _clearDate : null,
+              ),
+              _buildToolbarButton(
+                context: context,
+                icon: _notificationType == 'Sessiz'
+                    ? Icons.notifications_off
+                    : Icons.notifications_active,
+                label: _notificationType ?? "Bildirim",
+                isActive: _notificationType != null,
+                onTap: () => _showNotificationBottomSheet(context),
+              ),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildToolbarButton({
+    required BuildContext context,
+    required IconData icon,
+    required String label,
+    required bool isActive,
+    required VoidCallback onTap,
+    VoidCallback? onLongPress,
+  }) {
+    final color = isActive
+        ? context.colorScheme.primary
+        : context.colorScheme.onSurface.withAlpha(150);
+
+    return InkWell(
+      onTap: onTap,
+      onLongPress: onLongPress,
+      borderRadius: BorderRadius.circular(LayoutConstants.defaultRadius),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: LayoutConstants.midSize,
+          vertical: LayoutConstants.lowSize,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: color, size: 24),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: context.textTheme.labelSmall?.copyWith(
+                color: color,
+                fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showNotificationBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: context.colorScheme.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(LayoutConstants.largeSize),
+        ),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Padding(
+            padding: LayoutConstants.highVerticalPadding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 40,
+                  height: 4,
+                  margin: LayoutConstants.defaultVerticalPadding,
+                  decoration: BoxDecoration(
+                    color: context.colorScheme.onSurface.withAlpha(50),
+                    borderRadius: BorderRadius.circular(
+                      LayoutConstants.defaultRadius,
+                    ),
+                  ),
+                ),
+                Text(
+                  "Bildirim Tipi Seçin",
+                  style: context.textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                LayoutConstants.midEmptyHeight,
+                ListTile(
+                  leading: const Icon(Icons.notifications_active),
+                  title: const Text("Anlık Bildirim (Sesli)"),
+                  onTap: () {
+                    setState(() {
+                      _notificationType = "Sesli";
+                    });
+                    context.pop();
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.notifications_off),
+                  title: const Text("Anlık Bildirim (Sessiz)"),
+                  onTap: () {
+                    setState(() {
+                      _notificationType = "Sessiz";
+                    });
+                    context.pop();
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -141,10 +255,20 @@ class _CreateNoteViewState extends State<CreateNoteView> {
       ),
       actions: [
         IconButton(
-          onPressed: _date != null ? _saveNote : null,
-          icon: Icon(Icons.done,
-              color: _date != null ? context.colorScheme.primary : Colors.grey),
-        )
+          onPressed:
+              (titleController.text.isNotEmpty ||
+                  noteController.text.isNotEmpty)
+              ? _saveNote
+              : null,
+          icon: Icon(
+            Icons.done,
+            color:
+                (titleController.text.isNotEmpty ||
+                    noteController.text.isNotEmpty)
+                ? context.colorScheme.primary
+                : Colors.grey,
+          ),
+        ),
       ],
     );
   }
@@ -167,12 +291,21 @@ class _CreateNoteViewState extends State<CreateNoteView> {
     }
   }
 
+  void _clearDate() {
+    setState(() {
+      _date = null;
+    });
+  }
+
   String formatDate() {
     if (_date == null) return "";
     return DateFormat.yMd(context.locale.toString()).format(_date!);
   }
 
   void _checkNote() {
+    titleController.addListener(() => setState(() {}));
+    noteController.addListener(() => setState(() {}));
+
     if (widget.note != null) {
       titleController.text = widget.note!.noteTitle ?? "";
       noteController.text = widget.note!.noteContent ?? "";
